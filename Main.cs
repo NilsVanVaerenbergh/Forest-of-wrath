@@ -1,17 +1,23 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Forest_of_wrath.Classes.Background;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Forest_of_wrath
 {
-    public class Game1 : Game
+    public class Main : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Game1()
+        Background _background;
+        Color color;
+        public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferHeight = 680;
+            _graphics.PreferredBackBufferWidth = 928;
+            _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -20,14 +26,17 @@ namespace Forest_of_wrath
         {
             // TODO: Add your initialization logic here
 
+            color = new Color(12, 17, 34);   
+
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
+            _background = new Background(this.Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -42,10 +51,12 @@ namespace Forest_of_wrath
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(color);
 
             // TODO: Add your drawing code here
-
+            _spriteBatch.Begin();
+            _background.Draw(_spriteBatch);
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
