@@ -22,7 +22,7 @@ namespace Forest_of_wrath.Classes.Background
             foreach (string file in filesList)
             {
                 string path = Path.GetFileNameWithoutExtension(file);
-                Layer layer = new Layer(path, 0, content);
+                Layer layer = new Layer(path,0, 0, content);
                 textures.Add(layer);
             }
         }

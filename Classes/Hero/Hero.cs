@@ -14,7 +14,7 @@ namespace Forest_of_wrath.Classes.Hero
     {
 
         Texture2D _heroTexture;
-        Vector2 _scale = new Vector2(3f,3f);
+        Vector2 _scale = new Vector2(1f,1f);
         Vector2 _origin = new Vector2(0, 0);
 
         private int offsetXFrame = 0;
@@ -26,12 +26,10 @@ namespace Forest_of_wrath.Classes.Hero
             _heroTexture = content.Load<Texture2D>("Hero/idle");
             frame = new Rectangle(offsetXFrame, 0, frameWidth, 32);
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_heroTexture, new Vector2(0,0),frame,Color.White,0,_origin,_scale,SpriteEffects.None,0);
         }
-
         public void Update()
         {
             offsetXFrame += frameWidth;
