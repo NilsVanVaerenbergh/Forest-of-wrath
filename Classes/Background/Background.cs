@@ -12,6 +12,11 @@ namespace Forest_of_wrath.Classes.Background
 {
     internal class Background: IGameObject
     {
+
+        /* 
+            Refactor -> Read trough Content/Background/ -> Load in all files trough Content.Load().
+            Push them to an array? Read them out to draw them?
+        */
         Texture2D _backgroundTexture_0;
         Texture2D _backgroundTexture_1;
         Texture2D _backgroundTexture_2;
