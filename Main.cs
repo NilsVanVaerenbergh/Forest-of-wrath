@@ -37,12 +37,10 @@ namespace Forest_of_wrath
             _background = new Background(this.Content);
             _hero = new Hero(this.Content);
         }
-
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
             // TODO: Add your update logic here
             _hero.Update();
             base.Update(gameTime);
@@ -50,7 +48,6 @@ namespace Forest_of_wrath
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(color);
-
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _background.Draw(_spriteBatch);
