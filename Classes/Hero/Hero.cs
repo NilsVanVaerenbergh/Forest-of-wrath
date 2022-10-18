@@ -1,4 +1,5 @@
-﻿using Forest_of_wrath.Interfaces;
+﻿using Forest_of_wrath.Classes.Background;
+using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
