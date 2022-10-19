@@ -1,5 +1,6 @@
 ﻿using Forest_of_wrath.Classes.Background;
 using Forest_of_wrath.Classes.Hero;
+using Forest_of_wrath.Classes.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,6 +16,7 @@ namespace Forest_of_wrath
         Background _background;
         Hero _hero;
         Color _color;
+        UI _ui;
         private int speed = 2;
 
         KeyboardState oldStateLeft;
@@ -44,8 +46,8 @@ namespace Forest_of_wrath
             // TODO: use this.Content to load your game content here
             _background = new Background(this.Content);
             _hero = new Hero(this.Content);
+            _ui = new UI(this.Content);
             song = this.Content.Load<Song>("Sound/Game");
-
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume -= 0.9f;
             MediaPlayer.Play(song);
@@ -103,6 +105,7 @@ namespace Forest_of_wrath
             _spriteBatch.Begin();
             _background.Draw(_spriteBatch);
             _hero.Draw(_spriteBatch);
+            _ui.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
