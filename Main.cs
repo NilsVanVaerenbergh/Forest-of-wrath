@@ -3,6 +3,7 @@ using Forest_of_wrath.Classes.Hero;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SharpDX.Direct3D9;
 
 namespace Forest_of_wrath
@@ -18,6 +19,8 @@ namespace Forest_of_wrath
 
         KeyboardState oldStateLeft;
         KeyboardState oldStateRight;
+
+        Song song;
 
         public Main()
         {
@@ -41,6 +44,13 @@ namespace Forest_of_wrath
             // TODO: use this.Content to load your game content here
             _background = new Background(this.Content);
             _hero = new Hero(this.Content);
+            song = this.Content.Load<Song>("Sound/Game");
+
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume -= 0.9f;
+            MediaPlayer.Play(song);
+
+
         }
         protected override void Update(GameTime gameTime)
         {
