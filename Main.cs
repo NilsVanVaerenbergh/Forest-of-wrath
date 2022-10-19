@@ -3,6 +3,7 @@ using Forest_of_wrath.Classes.Hero;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct3D9;
 
 namespace Forest_of_wrath
 {
@@ -10,10 +11,14 @@ namespace Forest_of_wrath
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
         Background _background;
         Hero _hero;
-        Color color;
+        Color _color;
+        private int speed = 2;
+
+        KeyboardState oldStateLeft;
+        KeyboardState oldStateRight;
+
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -26,7 +31,7 @@ namespace Forest_of_wrath
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            color = new Color(12, 17, 34);   
+            _color = new Color(12, 17, 34);   
             base.Initialize();
         }
 
@@ -41,13 +46,49 @@ namespace Forest_of_wrath
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            KeyboardState newStateLeft = Keyboard.GetState();
+            if (newStateLeft.IsKeyDown(Keys.Q) && !oldStateLeft.IsKeyDown(Keys.Q))
+            {
+                _hero.setSpeed(speed * -1, 0);
+                _hero.setFlip(SpriteEffects.FlipHorizontally);
+                _hero.Move();
+            }
+            else if (newStateLeft.IsKeyDown(Keys.Q) && oldStateLeft.IsKeyDown(Keys.Q))
+            {
+                _hero.setSpeed(speed * -1, 0);
+                _hero.setFlip(SpriteEffects.FlipHorizontally);
+                _hero.Move();
+            }
+            else if (!newStateLeft.IsKeyDown(Keys.Q) && oldStateLeft.IsKeyDown(Keys.Q))
+            {
+                _hero.setState(CharacterState.IDLE);
+            }
+            oldStateLeft = newStateLeft;
+            KeyboardState newStateRight = Keyboard.GetState();
+            if (newStateRight.IsKeyDown(Keys.D) && !oldStateRight.IsKeyDown(Keys.D))
+            {
+                _hero.setSpeed(speed, 0);
+                _hero.setFlip(SpriteEffects.None);
+                _hero.Move();
+            }
+            else if (newStateRight.IsKeyDown(Keys.D) && oldStateRight.IsKeyDown(Keys.D))
+            {
+                _hero.setSpeed(speed, 0);
+                _hero.setFlip(SpriteEffects.None);
+                _hero.Move();
+            }
+            else if (!newStateRight.IsKeyDown(Keys.D) && oldStateRight.IsKeyDown(Keys.D))
+            {
+                _hero.setState(CharacterState.IDLE);
+            }
+            oldStateRight = newStateRight;
             // TODO: Add your update logic here
             _hero.Update(gameTime);
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(color);
+            GraphicsDevice.Clear(_color);
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _background.Draw(_spriteBatch);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Forest_of_wrath.Classes.Hero
+namespace Forest_of_wrath.Classes
 {
     internal class AnimationFrame
     {

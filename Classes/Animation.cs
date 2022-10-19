@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Forest_of_wrath.Classes.Hero
+namespace Forest_of_wrath.Classes
 {
     internal class Animation
     {
@@ -13,8 +13,10 @@ namespace Forest_of_wrath.Classes.Hero
         private List<AnimationFrame> _frames;
         private int _counter;
         private double _elapsedCounter = 0;
-        public Animation()
+        private int _fps;
+        public Animation(int fps)
         {
+            _fps = fps;
             _frames = new List<AnimationFrame>();
         }
         public void AddFrame(AnimationFrame frame)
@@ -28,9 +30,7 @@ namespace Forest_of_wrath.Classes.Hero
             _currentFrame = _frames[_counter];
 
             _elapsedCounter += gameTime.ElapsedGameTime.TotalSeconds;
-            int fps = 5;
-
-            if(_elapsedCounter >= 1d/fps)
+            if (_elapsedCounter >= 1d / _fps)
             {
                 _counter++;
                 _elapsedCounter = 0;

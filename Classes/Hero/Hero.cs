@@ -1,38 +1,69 @@
-﻿using Forest_of_wrath.Interfaces;
+﻿using Forest_of_wrath.Classes;
+using Forest_of_wrath.Classes.Hero.States;
+using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Forest_of_wrath.Classes.Hero
 {
-    internal class Hero : IGameObject
+    public enum CharacterState
     {
-
-        Texture2D _heroTexture;
-        int _frameWidth;
-        Animation _animation;
-        int _heightOffset;
-
+        RUNNING,
+        IDLE
+    }
+    internal class Hero : IGameObject,ICharacterObject
+    {
+        IStateObject _state;
+        private int _heightOffset;
+        private Vector2 _position;
+        private Vector2 _snelheid;
+        ContentManager _content;
+        private SpriteEffects _flip;
         public Hero(ContentManager content)
         {
-            _heroTexture = content.Load<Texture2D>("Hero/Idle");
-            _frameWidth = 184;
             _heightOffset = 377;
-            _animation = new Animation();
-            _animation.AddFrame(new AnimationFrame(new Rectangle(0,0,_frameWidth,_heroTexture.Height)));
-            _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth, 0, _frameWidth, _heroTexture.Height)));
-            _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth * 2,0, _frameWidth, _heroTexture.Height)));
-            _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth * 3,0, _frameWidth, _heroTexture.Height)));
-            _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth * 4, 0, _frameWidth, _heroTexture.Height)));
-
+            _position = new Vector2(0,_heightOffset);
+            _snelheid = new Vector2(1, 0);
+            _content = content;
+            _state = new Idle(_content);
+            _flip = SpriteEffects.None;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_heroTexture, new Vector2(0,_heightOffset), _animation._currentFrame._sourceRectangle,Color.White);
+            _state.Draw(spriteBatch, _position, _flip);
         }
         public void Update(GameTime gameTime)
         {
-            _animation.Update(gameTime);
+            _state.Update(gameTime);
+        }
+        public void Move()
+        {
+            if(_state is not Running)
+            {
+                setState(CharacterState.RUNNING);
+            }
+            _position += _snelheid;
+            if (_position.X > GraphicsDeviceManager.DefaultBackBufferWidth || _position.X < 0)
+            {
+                _snelheid *= -1;
+            }
+        }
+        public void setSpeed(int x, int y)
+        {
+            _snelheid = new Vector2(x, y);
+        }
+
+        public void setState(CharacterState state)
+        {
+            if (state == CharacterState.RUNNING) _state = new Running(_content);
+            if (state == CharacterState.IDLE) _state = new Idle(_content);
+        }
+
+        public void setFlip(SpriteEffects effect)
+        {
+            _flip = effect;
         }
     }
+
 }
