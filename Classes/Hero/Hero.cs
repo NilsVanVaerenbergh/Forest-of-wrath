@@ -9,9 +9,12 @@ namespace Forest_of_wrath.Classes.Hero
     {
 
         Texture2D _heroTexture;
-        int _frameWidth;
         Animation _animation;
-        int _heightOffset;
+        private int _heightOffset;
+        private int _frameWidth;
+        private Vector2 _position;
+        private Vector2 _snelheid;
+
 
         public Hero(ContentManager content)
         {
@@ -23,15 +26,27 @@ namespace Forest_of_wrath.Classes.Hero
             _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth, 0, _frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth * 2,0, _frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth * 3,0, _frameWidth, _heroTexture.Height)));
-
+            _position = new Vector2(0,_heightOffset);
+            _snelheid = new Vector2(1, 0);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_heroTexture, new Vector2(0,_heightOffset), _animation._currentFrame._sourceRectangle,Color.White);
+            spriteBatch.Draw(_heroTexture, _position, _animation._currentFrame._sourceRectangle, Color.White);
+            Move();
         }
         public void Update(GameTime gameTime)
         {
             _animation.Update(gameTime);
         }
+        private void Move()
+        {
+            _position += _snelheid;
+            if (_position.X > GraphicsDeviceManager.DefaultBackBufferWidth || _position.X < 0)
+            {
+                _snelheid *= -1;
+            } 
+        }
+
+
     }
 }
