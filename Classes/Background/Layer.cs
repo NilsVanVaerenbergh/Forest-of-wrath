@@ -29,7 +29,7 @@ namespace Forest_of_wrath.Classes.Background
         {
             spriteBatch.Draw(_texture, _position, Color.White);
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

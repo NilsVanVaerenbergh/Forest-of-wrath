@@ -1,13 +1,7 @@
-﻿using Forest_of_wrath.Classes.Background;
-using Forest_of_wrath.Interfaces;
+﻿using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Forest_of_wrath.Classes.Hero
 {
@@ -15,31 +9,29 @@ namespace Forest_of_wrath.Classes.Hero
     {
 
         Texture2D _heroTexture;
-        Vector2 _scale = new Vector2(1f,1f);
-        Vector2 _origin = new Vector2(0, 0);
-
-        private int offsetXFrame = 0;
-        private int frameWidth = 150;
-        private Rectangle frame;
+        int _frameWidth;
+        Animation _animation;
+        int _heightOffset;
 
         public Hero(ContentManager content)
         {
             _heroTexture = content.Load<Texture2D>("Hero/idle");
-            frame = new Rectangle(offsetXFrame, 0, frameWidth, _heroTexture.Height);
+            _frameWidth = 150;
+            _heightOffset = 400;
+            _animation = new Animation();
+            _animation.AddFrame(new AnimationFrame(new Rectangle(0,0,_frameWidth,_heroTexture.Height)));
+            _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth, 0, _frameWidth, _heroTexture.Height)));
+            _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth * 2,0, _frameWidth, _heroTexture.Height)));
+            _animation.AddFrame(new AnimationFrame(new Rectangle(_frameWidth * 3,0, _frameWidth, _heroTexture.Height)));
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_heroTexture, new Vector2(0,0),frame,Color.White,0,_origin,_scale,SpriteEffects.None,0);
+            spriteBatch.Draw(_heroTexture, new Vector2(0,_heightOffset), _animation._currentFrame._sourceRectangle,Color.White);
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            offsetXFrame += frameWidth;
-
-            if (offsetXFrame > _heroTexture.Width)
-            {
-                offsetXFrame = 0;
-            }
-            frame.X = offsetXFrame;
+            _animation.Update(gameTime);
         }
     }
 }

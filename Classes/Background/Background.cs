@@ -10,9 +10,10 @@ namespace Forest_of_wrath.Classes.Background
 {
     internal class Background: IGameObject
     {
-        List<Layer> textures = new List<Layer>();
+        List<Layer> textures;
         public Background(ContentManager content)
         {
+            textures = new List<Layer>();
             string[] filesList = Directory.GetFiles("./Content/Background");
             foreach (string file in filesList)
             {
@@ -21,7 +22,7 @@ namespace Forest_of_wrath.Classes.Background
                 textures.Add(layer);
             }
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }
