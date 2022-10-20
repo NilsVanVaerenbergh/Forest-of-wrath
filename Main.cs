@@ -51,8 +51,6 @@ namespace Forest_of_wrath
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume -= 0.9f;
             MediaPlayer.Play(song);
-
-
         }
         protected override void Update(GameTime gameTime)
         {
@@ -63,6 +61,7 @@ namespace Forest_of_wrath
             {
                 _hero.setSpeed(speed * -1, 0);
                 _hero.setFlip(SpriteEffects.FlipHorizontally);
+                _hero.playSound(CharacterSound.RUNNING);
                 _hero.Move();
             }
             else if (newStateLeft.IsKeyDown(Keys.Q) && oldStateLeft.IsKeyDown(Keys.Q))
@@ -81,6 +80,7 @@ namespace Forest_of_wrath
             {
                 _hero.setSpeed(speed, 0);
                 _hero.setFlip(SpriteEffects.None);
+                _hero.playSound(CharacterSound.RUNNING);
                 _hero.Move();
             }
             else if (newStateRight.IsKeyDown(Keys.D) && oldStateRight.IsKeyDown(Keys.D))

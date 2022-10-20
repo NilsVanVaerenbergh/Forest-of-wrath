@@ -2,12 +2,19 @@
 using Forest_of_wrath.Classes.Hero.States;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Forest_of_wrath.Classes.Hero
 {
     public enum CharacterState
+    {
+        RUNNING,
+        IDLE
+    }
+    public enum CharacterSound
     {
         RUNNING,
         IDLE
@@ -20,6 +27,8 @@ namespace Forest_of_wrath.Classes.Hero
         private Vector2 _snelheid;
         ContentManager _content;
         private SpriteEffects _flip;
+        private SoundEffect _walkSound;
+
         public Hero(ContentManager content)
         {
             _heightOffset = 377;
@@ -28,6 +37,7 @@ namespace Forest_of_wrath.Classes.Hero
             _content = content;
             _state = new Idle(_content);
             _flip = SpriteEffects.None;
+            _walkSound = content.Load<SoundEffect>("Sound/walk");
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -53,16 +63,22 @@ namespace Forest_of_wrath.Classes.Hero
         {
             _snelheid = new Vector2(x, y);
         }
-
         public void setState(CharacterState state)
         {
             if (state == CharacterState.RUNNING) _state = new Running(_content);
             if (state == CharacterState.IDLE) _state = new Idle(_content);
         }
-
         public void setFlip(SpriteEffects effect)
         {
             _flip = effect;
+        }
+        public void playSound(CharacterSound sound)
+        {
+            if (sound == CharacterSound.RUNNING)
+            {
+                _walkSound.Play();
+                _walkSound.Dispose();
+            }
         }
     }
 

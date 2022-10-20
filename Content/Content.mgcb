@@ -325,6 +325,12 @@
 /processorParam:Quality=Best
 /build:Sound/MainMenu.mp3
 
+#begin Sound/walk.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/walk.wav
+
 #begin UI/Brown.png
 /importer:TextureImporter
 /processor:TextureProcessor
