@@ -10,9 +10,8 @@ namespace Forest_of_wrath.Interfaces
 {
     internal interface ICharacterObject
     {
+        public int Health { get; set; }
         void setState(CharacterState state);
-        void setSpeed(int x, int y);
-
         void setFlip(SpriteEffects effect);
     }
 }

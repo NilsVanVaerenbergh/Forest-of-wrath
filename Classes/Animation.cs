@@ -1,19 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Forest_of_wrath.Classes
 {
     internal class Animation
     {
         public AnimationFrame _currentFrame { get; set; }
+        public AnimationFrame _lastFrame { get; set; }
         private List<AnimationFrame> _frames;
         private int _counter;
         private double _elapsedCounter = 0;
         private int _fps;
+
+
+
         public Animation(int fps)
         {
             _fps = fps;
@@ -23,7 +24,7 @@ namespace Forest_of_wrath.Classes
         {
             _frames.Add(frame);
             _currentFrame = _frames[0];
-
+            _lastFrame = _frames[_frames.Count-1];
         }
         public void Update(GameTime gameTime)
         {

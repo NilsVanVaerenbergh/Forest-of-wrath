@@ -11,6 +11,7 @@ namespace Forest_of_wrath.Interfaces
 {
     internal interface IStateObject
     {
+        public int frameWidth { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect);
     }

@@ -1,31 +1,39 @@
 ﻿using Forest_of_wrath.Interfaces;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Forest_of_wrath.Classes.Hero.States
 {
-    internal class Idle: IStateObject
+    internal class Death : IStateObject
     {
         Texture2D _heroTexture;
         Animation _animation;
         public int frameWidth { get; set; }
-        public Idle(ContentManager content)
+
+        private SoundEffect _sound;
+
+
+        public Death(ContentManager content)
         {
             /*
-             *  IDLE STATE Hero/Idle
+             *  DEATH STATE Hero/Death
              *  FRAMES: 6
              */
-            _heroTexture = content.Load<Texture2D>("Hero/Idle");
-            frameWidth = _heroTexture.Width / 6;
+            _heroTexture = content.Load<Texture2D>("Hero/Death");
+            _sound = content.Load<SoundEffect>("Sound/Hero/death");
+            frameWidth = _heroTexture.Width / 9;
             _animation = new Animation(6);
             _animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 2, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 3, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 4, 0, frameWidth, _heroTexture.Height)));
+            _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 5, 0, frameWidth, _heroTexture.Height)));
+            _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 6, 0, frameWidth, _heroTexture.Height)));
+            _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 8, 0, frameWidth, _heroTexture.Height)));
+            _sound.Play();
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
@@ -33,7 +41,10 @@ namespace Forest_of_wrath.Classes.Hero.States
         }
         public void Update(GameTime gameTime)
         {
-            _animation.Update(gameTime);
+            if(_animation._currentFrame != _animation._lastFrame)
+            {
+                _animation.Update(gameTime);
+            } 
         }
     }
 }

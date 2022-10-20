@@ -319,17 +319,29 @@
 /processorParam:Quality=Best
 /build:Sound/Game.mp3
 
+#begin Sound/Hero/death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Hero/death.wav
+
+#begin Sound/Hero/jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Hero/jump.wav
+
+#begin Sound/Hero/walk.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Hero/walk.wav
+
 #begin Sound/MainMenu.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/MainMenu.mp3
-
-#begin Sound/walk.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound/walk.wav
 
 #begin UI/Brown.png
 /importer:TextureImporter
