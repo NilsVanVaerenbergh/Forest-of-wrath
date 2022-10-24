@@ -52,7 +52,7 @@ namespace Forest_of_wrath
             _ui = new UI(this.Content);
             song = this.Content.Load<Song>("Sound/Game");
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume -= 0.5f;
+            MediaPlayer.Volume -= 1f;
             MediaPlayer.Play(song);
         }
         protected override void Update(GameTime gameTime)

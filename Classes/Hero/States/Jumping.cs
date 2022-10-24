@@ -43,48 +43,48 @@ namespace Forest_of_wrath.Classes.Hero.States
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
             _currentPosition = position + _position;
-            spriteBatch.Draw(_heroTexture, position + _position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, _spriteEffect, 0f);
+            spriteBatch.Draw(_heroTexture, _currentPosition, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, _spriteEffect, 0f);
         }
 
         public void Update(GameTime gameTime)
         {
-
-            _position += _velocity;
-            if(Keyboard.GetState().IsKeyDown(Keys.Up) && hasJumped == false)
+            if(_heroInstance.getState() == this)
             {
-                _position.Y += -10f;
-                _velocity.Y += -3f;
-
-                if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                _position += _velocity;
+                if(Keyboard.GetState().IsKeyDown(Keys.Up) && hasJumped == false)
                 {
-                    _spriteEffect = SpriteEffects.FlipHorizontally;
-                    _velocity.X -= 3f;
+                    _position.Y += -10f;
+                    _velocity.Y += -3f;
+                    if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    {
+                        _spriteEffect = SpriteEffects.FlipHorizontally;
+                        _velocity.X -= 3f;
+                    }
+                    if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    {
+                        _spriteEffect = SpriteEffects.None;
+                        _velocity.X += 3f;
+                    }
+                    hasJumped = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                if(hasJumped)
                 {
-                    _spriteEffect = SpriteEffects.None;
-                    _velocity.X += 3f;
+                    int i = 1;
+                    _velocity.Y += 0.15f * i;
+                }
+                if(hasJumped == false)
+                {
+                    _velocity.Y = -0f;
+                }
+                if(_currentPosition.Y >= _initialHeight)
+                {
+                    hasJumped = false;
+                    _heroInstance.setState(Character.CharacterState.IDLE);
+                    _heroInstance.setPosition(new Vector2(_currentPosition.X, _initialHeight));
                 }
 
-                hasJumped = true;
+                _animation.Update(gameTime);
             }
-            if(hasJumped)
-            {
-                int i = 1;
-                _velocity.Y += 0.15f * i;
-            }
-            if(hasJumped == false)
-            {
-                _velocity.Y = -0f;
-            }
-            if(_currentPosition.Y >= _initialHeight)
-            {
-                hasJumped = false;
-                _heroInstance.setState(CharacterState.IDLE);
-                _heroInstance.setPosition(new Vector2(_currentPosition.X, _initialHeight));
-            }
-
-            _animation.Update(gameTime);
         }
     }
 }

@@ -16,7 +16,6 @@ namespace Forest_of_wrath.Classes.Handlers
     {
         private KeyboardState oldState;
         HeroClass _hero;
-        private int speed = 2;
         public KeyHandler(HeroClass hero)
         {
             _hero = hero;
@@ -32,12 +31,12 @@ namespace Forest_of_wrath.Classes.Handlers
                     if (Keyboard.GetState().IsKeyDown(Keys.Left))
                     {
                         _hero.setFlip(SpriteEffects.FlipHorizontally);
-                        _hero.Move(speed * -1, 0);
+                        _hero.Move();
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     {
                         _hero.setFlip(SpriteEffects.None);
-                        _hero.Move(speed * 1, 0);
+                        _hero.Move();
                     }
                 }
                 else if (newState.IsKeyUp(Keys.Up) && newState.IsKeyDown(Keys.Left) && oldState.IsKeyDown(Keys.Left) || newState.IsKeyDown(Keys.Right) && oldState.IsKeyDown(Keys.Right))
@@ -45,22 +44,21 @@ namespace Forest_of_wrath.Classes.Handlers
                     if (Keyboard.GetState().IsKeyDown(Keys.Left))
                     {
                         _hero.setFlip(SpriteEffects.FlipHorizontally);
-                        _hero.Move(speed * -1, 0);
+                        _hero.Move();
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     {
                         _hero.setFlip(SpriteEffects.None);
-                        _hero.Move(speed * 1, 0);
+                        _hero.Move();
                     }
                 }
                 else if (newState.IsKeyUp(Keys.Up) && !newState.IsKeyDown(Keys.Left) && oldState.IsKeyDown(Keys.Left) || !newState.IsKeyDown(Keys.Right) && oldState.IsKeyDown(Keys.Right))
                 {
-                    _hero.setState(CharacterState.IDLE);
+                    _hero.setState(Character.CharacterState.IDLE);
                 }
             }
             if (newState.IsKeyDown(Keys.Up) && !oldState.IsKeyDown(Keys.Up))
             {
-                _hero.setFlip(SpriteEffects.None);
                 _hero.Jump();
             }
             oldState = newState;

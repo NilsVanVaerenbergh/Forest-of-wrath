@@ -1,4 +1,5 @@
-﻿using Forest_of_wrath.Classes.Hero;
+﻿using Forest_of_wrath.Classes;
+using Forest_of_wrath.Classes.Hero;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Forest_of_wrath.Interfaces
     internal interface ICharacterObject
     {
         public int Health { get; set; }
-        void setState(CharacterState state);
+        void setState(Character.CharacterState state);
         void setFlip(SpriteEffects effect);
     }
 }
