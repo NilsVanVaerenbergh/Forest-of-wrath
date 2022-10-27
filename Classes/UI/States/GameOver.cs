@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Forest_of_wrath.Classes.UI.States
 {
-    internal class GameOver : IGameObject
+    internal class GameOver : IUiStateObject
     {
         public void Draw(SpriteBatch spriteBatch)
         {

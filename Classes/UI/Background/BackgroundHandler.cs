@@ -8,10 +8,10 @@ using System.IO;
 
 namespace Forest_of_wrath.Classes.Background
 {
-    internal class Background: IGameObject
+    internal class BackgroundHandler: IGameObject
     {
         List<Layer> textures;
-        public Background(ContentManager content)
+        public BackgroundHandler(ContentManager content)
         {
             textures = new List<Layer>();
             string[] filesList = Directory.GetFiles("./Content/Background");

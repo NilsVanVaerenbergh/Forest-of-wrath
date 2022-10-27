@@ -15,10 +15,9 @@ namespace Forest_of_wrath
         private GraphicsDeviceManager _graphics;
         private RenderTarget2D _renderTarget;
         private SpriteBatch _spriteBatch;
-        Background _background;
         HeroClass _hero;
         Color _color;
-        UI _ui;
+        UIHandler _ui;
         public float scale = 0f;
 
         KeyHandler controls;
@@ -47,9 +46,8 @@ namespace Forest_of_wrath
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _renderTarget = new RenderTarget2D(GraphicsDevice, 928, 680);
             // TODO: use this.Content to load your game content here
-            _background = new Background(this.Content);
             _hero = new HeroClass(this.Content);
-            _ui = new UI(this.Content);
+            _ui = new UIHandler(this.Content);
             song = this.Content.Load<Song>("Sound/Game");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume -= 1f;
@@ -57,9 +55,10 @@ namespace Forest_of_wrath
         }
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
+
+            //_ui.Update(gameTime);
             controls.Handle();
-            _hero.Update(gameTime);
+            // TODO: Add your update logic here
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
@@ -70,8 +69,6 @@ namespace Forest_of_wrath
             GraphicsDevice.Clear(_color);
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _background.Draw(_spriteBatch);
-            _hero.Draw(_spriteBatch);
             _ui.Draw(_spriteBatch);
             _spriteBatch.End();
 
