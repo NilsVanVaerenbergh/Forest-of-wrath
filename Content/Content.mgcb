@@ -157,12 +157,19 @@
 /processorParam:TextureFormat=Color
 /build:Background/9.png
 
-#begin Font/font.spritefont
+#begin Font/debug.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Font/font.spritefont
+/build:Font/debug.spritefont
+
+#begin Font/title_12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font/title_12.spritefont
 
 #begin Font/title_24.spritefont
 /importer:FontDescriptionImporter
@@ -170,6 +177,20 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Font/title_24.spritefont
+
+#begin Font/title_36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font/title_36.spritefont
+
+#begin Font/title_48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font/title_48.spritefont
 
 #begin Hero/Attack1.png
 /importer:TextureImporter

@@ -20,11 +20,13 @@ namespace Forest_of_wrath.Classes.UI
         Header header;
         BackgroundHandler background;
         IUiStateObject uiState;
+        ContentManager content;
         public UIHandler(ContentManager content)
         {
             header = new Header(content);
             background = new BackgroundHandler(content);
-            uiState = new MainMenu(content);
+            uiState = new MainMenu(content, this);
+            this.content = content;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -34,7 +36,13 @@ namespace Forest_of_wrath.Classes.UI
         }
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            uiState.Update(gameTime);
+        }
+        public void setState(UiState state)
+        {
+            if (state == UiState.MAIN) uiState = new MainMenu(content, this);
+            if (state == UiState.GAMEOVER) uiState = new GameOver(content, this);
+            if (state == UiState.PLAYING) uiState = new Playing(content, this);
         }
     }
 }

@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Forest_of_wrath.Classes.UI;
 
 namespace Forest_of_wrath.Interfaces
 {
     internal interface IUiStateObject
     {
+
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
     }
