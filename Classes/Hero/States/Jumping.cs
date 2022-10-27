@@ -1,4 +1,5 @@
-﻿using Forest_of_wrath.Interfaces;
+﻿using Forest_of_wrath.Classes.Handlers;
+using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -20,6 +21,7 @@ namespace Forest_of_wrath.Classes.Hero.States
         private bool hasJumped;
         private float _initialHeight;
         private SpriteEffects _spriteEffect;
+        private CollisionHandler _collision;
         public int frameWidth { get; set; }
         public Jumping(ContentManager content, HeroClass heroInstance)
         {
@@ -39,6 +41,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _sound.Play();
             _initialHeight = heroInstance.getPosition().Y;
             hasJumped = false;
+            _collision = new CollisionHandler(frameWidth, _heroTexture.Height);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
@@ -48,7 +51,11 @@ namespace Forest_of_wrath.Classes.Hero.States
 
         public void Update(GameTime gameTime)
         {
-            if(_heroInstance.getState() == this)
+            /*
+             *  distance [x1,y1,x2,y2]
+             */
+            float[] distance = _collision.distanceFromWindow(_currentPosition);
+            if (_heroInstance.getState() == this)
             {
                 _position += _velocity;
                 if(Keyboard.GetState().IsKeyDown(Keys.Up) && hasJumped == false)
@@ -58,12 +65,26 @@ namespace Forest_of_wrath.Classes.Hero.States
                     if (Keyboard.GetState().IsKeyDown(Keys.Left))
                     {
                         _spriteEffect = SpriteEffects.FlipHorizontally;
-                        _velocity.X -= 3f;
+
+                        if(distance[0] <= 0)
+                        {
+                            _velocity.X -= 0f;
+                        } else
+                        {
+                            _velocity.X -= 3f;
+                        }
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.Right))
                     {
                         _spriteEffect = SpriteEffects.None;
-                        _velocity.X += 3f;
+                        if (distance[2] <= 0)
+                        {
+                            _velocity.X += 0f;
+                        }
+                        else
+                        {
+                            _velocity.X += 3f;
+                        }
                     }
                     hasJumped = true;
                 }

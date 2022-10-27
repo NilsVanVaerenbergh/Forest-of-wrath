@@ -10,15 +10,27 @@ using System.Threading.Tasks;
 
 namespace Forest_of_wrath.Classes.UI
 {
+    public enum UiState
+    {
+        GAMEOVER,
+        PLAYING,
+        MAIN
+    }
     internal class UI : IGameObject
     {
         Header header;
+        public UiState state { get; set; }
         public UI(ContentManager content)
         {
             header = new Header(content);
+            state = UiState.MAIN;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (state == UiState.GAMEOVER)
+            {
+
+            }
             header.Draw(spriteBatch);
         }
 

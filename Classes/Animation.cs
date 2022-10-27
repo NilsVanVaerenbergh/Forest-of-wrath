@@ -12,9 +12,6 @@ namespace Forest_of_wrath.Classes
         private int _counter;
         private double _elapsedCounter = 0;
         private int _fps;
-
-
-
         public Animation(int fps)
         {
             _fps = fps;
