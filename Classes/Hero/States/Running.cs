@@ -51,7 +51,6 @@ namespace Forest_of_wrath.Classes.Hero.States
         }
         public void Update(GameTime gameTime)
         {
-
             /*
              *  distance [x1,y1,x2,y2]
              */

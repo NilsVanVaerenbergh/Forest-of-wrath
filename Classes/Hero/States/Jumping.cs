@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Diagnostics;
 
 namespace Forest_of_wrath.Classes.Hero.States
 {
@@ -54,7 +55,8 @@ namespace Forest_of_wrath.Classes.Hero.States
             /*
              *  distance [x1,y1,x2,y2]
              */
-            float[] distance = _collision.distanceFromWindow(_currentPosition);
+            float[] distance = _collision.distanceFromWindow(_heroInstance.getPosition());
+            Debug.WriteLine(distance[0]);
             if (_heroInstance.getState() == this)
             {
                 _position += _velocity;

@@ -8,6 +8,7 @@ namespace Forest_of_wrath.Classes
     {
         public AnimationFrame _currentFrame { get; set; }
         public AnimationFrame _lastFrame { get; set; }
+        public AnimationFrame _firstFrame { get; set; }
         private List<AnimationFrame> _frames;
         private int _counter;
         private double _elapsedCounter = 0;
@@ -22,6 +23,7 @@ namespace Forest_of_wrath.Classes
             _frames.Add(frame);
             _currentFrame = _frames[0];
             _lastFrame = _frames[_frames.Count-1];
+            _firstFrame = _frames[0];
         }
         public void Update(GameTime gameTime)
         {

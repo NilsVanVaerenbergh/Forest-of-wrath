@@ -6,8 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using SharpDX.X3DAudio;
 using System;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace Forest_of_wrath
 {
@@ -23,12 +23,12 @@ namespace Forest_of_wrath
         private Text debugText;
 
         public float scale = 0f;
-        Song song;
 
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
             IsMouseVisible = true;
         }
         protected override void Initialize()
@@ -37,7 +37,6 @@ namespace Forest_of_wrath
             _color = new Color(12, 17, 34);
             _graphics.PreferredBackBufferWidth = 928;
             _graphics.PreferredBackBufferHeight = 680;
-            
             _graphics.ApplyChanges();
             base.Initialize();
         }
@@ -50,10 +49,6 @@ namespace Forest_of_wrath
             debugFont = this.Content.Load<SpriteFont>("Font/debug");
             debugText = new Text("debug", new Vector2(5f), debugFont, Color.White);
             _ui = new UIHandler(this.Content);
-            song = this.Content.Load<Song>("Sound/Game");
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume -= 1f;
-            MediaPlayer.Play(song);
         }
         protected override void Update(GameTime gameTime)
         {

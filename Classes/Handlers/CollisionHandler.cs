@@ -26,7 +26,6 @@ namespace Forest_of_wrath.Classes.Handlers
             _distance.y1 = position.Y;
             _distance.x2 = GraphicsDeviceManager.DefaultBackBufferWidth - (_frameWidth + position.X);
             _distance.y2 = GraphicsDeviceManager.DefaultBackBufferHeight - (_frameHeight + position.Y);
-            Debug.WriteLine($"x:{_distance.x1}y:{_distance.y1} | x2:{_distance.x2}y2:{_distance.y2}");
             return new float[4] {_distance.x1,_distance.y1,_distance.x2,_distance.y2};
                                 
         }                       
