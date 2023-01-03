@@ -35,8 +35,8 @@ namespace Forest_of_wrath
         {
             // TODO: Add your initialization logic here
             _color = new Color(12, 17, 34);
-            _graphics.PreferredBackBufferWidth = 928;
             _graphics.PreferredBackBufferHeight = 680;
+            _graphics.PreferredBackBufferWidth = 928;
             _graphics.ApplyChanges();
             base.Initialize();
         }
@@ -74,15 +74,15 @@ namespace Forest_of_wrath
             GraphicsDevice.SetRenderTarget(_renderTarget);
             GraphicsDevice.Clear(_color);
             // TODO: Add your drawing code here
-            _spriteBatch.Begin();
-            _ui.Draw(_spriteBatch);
-            debugText.Draw(_spriteBatch);
-            _spriteBatch.End();
 
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(_color);
             _spriteBatch.Begin();
             _spriteBatch.Draw(_renderTarget, Vector2.Zero,null, Color.White, 0f, Vector2.Zero,1f,SpriteEffects.None,0f);
+            _spriteBatch.End();
+            _spriteBatch.Begin();
+            _ui.Draw(_spriteBatch);
+            debugText.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

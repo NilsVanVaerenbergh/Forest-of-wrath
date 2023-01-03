@@ -1,4 +1,5 @@
 ﻿using Forest_of_wrath.Classes.Animations;
+using Forest_of_wrath.Classes.Collision;
 using Forest_of_wrath.Classes.Handlers;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
@@ -6,6 +7,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using Keyboard = Microsoft.Xna.Framework.Input.Keyboard;
 
 namespace Forest_of_wrath.Classes.Hero.States
@@ -21,7 +23,9 @@ namespace Forest_of_wrath.Classes.Hero.States
         private CollisionHandler _collision;
         public int frameWidth { get; set; }
         private SoundEffect _sound;
-        public Running(ContentManager content, HeroClass heroInstance)
+
+        Hitbox bodyHitBox;
+        public Running(ContentManager content, HeroClass heroInstance, GraphicsDeviceManager graphicsDevice)
         {
             /*
              *  RUNNING STATE Hero/Run
@@ -43,11 +47,14 @@ namespace Forest_of_wrath.Classes.Hero.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 7, 0,frameWidth, _heroTexture.Height)));
             _sound.Play();
             _currentPosition = _heroInstance.getPosition();
-            _collision = new CollisionHandler(frameWidth, _heroTexture.Height);
+            bodyHitBox = new Hitbox(graphicsDevice);
+            bodyHitBox.Load(22, 65);
+            _collision = new CollisionHandler(22,65,graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
             _currentPosition = position;
+            bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 75f, position.Y + 59f));
             spriteBatch.Draw(_heroTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
         public void Update(GameTime gameTime)
@@ -55,7 +62,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             /*
              *  distance [x1,y1,x2,y2]
              */
-            float[] distance = _collision.distanceFromWindow(_currentPosition);
+            float[] distance = _collision.distanceFromWindow(bodyHitBox.hitBoxPosition);
             if(Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 if(Keyboard.GetState().IsKeyDown(Keys.Right) || distance[0] <= 0) 
@@ -72,6 +79,7 @@ namespace Forest_of_wrath.Classes.Hero.States
                 if (Keyboard.GetState().IsKeyDown(Keys.Left) || distance[2] <= 0)
                 {
                     _velocity = new Vector2(0, 0);
+
                 }
                 else
                 {

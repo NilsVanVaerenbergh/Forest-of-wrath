@@ -25,7 +25,7 @@ namespace Forest_of_wrath.Classes.Hero.States
         private SpriteEffects _spriteEffect;
         private CollisionHandler _collision;
         public int frameWidth { get; set; }
-        public Jumping(ContentManager content, HeroClass heroInstance)
+        public Jumping(ContentManager content, HeroClass heroInstance, GraphicsDeviceManager graphicsDevice)
         {
             /*
              *  JUMP STATE Hero/Jump
@@ -43,7 +43,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _sound.Play();
             _initialHeight = heroInstance.getPosition().Y;
             hasJumped = false;
-            _collision = new CollisionHandler(frameWidth, _heroTexture.Height);
+            _collision = new CollisionHandler(frameWidth, _heroTexture.Height, graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {

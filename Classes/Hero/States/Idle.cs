@@ -1,4 +1,5 @@
 ﻿using Forest_of_wrath.Classes.Animations;
+using Forest_of_wrath.Classes.Collision;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -12,8 +13,9 @@ namespace Forest_of_wrath.Classes.Hero.States
     {
         Texture2D _heroTexture;
         Animation _animation;
+        Hitbox bodyHitBox;
         public int frameWidth { get; set; }
-        public Idle(ContentManager content)
+        public Idle(ContentManager content, GraphicsDeviceManager graphicsDevice)
         {
             /*
              *  IDLE STATE Hero/Idle
@@ -27,9 +29,12 @@ namespace Forest_of_wrath.Classes.Hero.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 2, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 3, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 4, 0, frameWidth, _heroTexture.Height)));
+            bodyHitBox = new Hitbox(graphicsDevice);
+            bodyHitBox.Load(22, 65);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
+            bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 75f, position.Y + 59f));
             spriteBatch.Draw(_heroTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
         public void Update(GameTime gameTime)

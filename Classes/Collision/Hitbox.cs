@@ -14,6 +14,7 @@ namespace Forest_of_wrath.Classes.Collision
         private GraphicsDeviceManager graphicsDeviceManager;
         private Texture2D rect;
         private Color[] data;
+        public Vector2 hitBoxPosition;
 
         public Hitbox(GraphicsDeviceManager graphicsDevice)
         {
@@ -34,6 +35,7 @@ namespace Forest_of_wrath.Classes.Collision
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 pos)
         {
+            hitBoxPosition = pos;
             spriteBatch.Draw(rect,pos,Color.Red);
         }
     }

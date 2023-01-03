@@ -14,18 +14,20 @@ namespace Forest_of_wrath.Classes.Handlers
         private int _frameWidth;
         private int _frameHeight;
         private Distance _distance;
-        public CollisionHandler(int frameWidth, int frameHeight)
+        private GraphicsDeviceManager graphicsDeviceManager;
+        public CollisionHandler(int frameWidth, int frameHeight, GraphicsDeviceManager graphicsDevice)
         {
             _frameWidth = frameWidth;
             _frameHeight = frameHeight;
             _distance = new Distance();
+            graphicsDeviceManager = graphicsDevice;
         }
         public float[] distanceFromWindow(Vector2 position)
         {
             _distance.x1 = position.X;
             _distance.y1 = position.Y;
-            _distance.x2 = GraphicsDeviceManager.DefaultBackBufferWidth - (_frameWidth + position.X);
-            _distance.y2 = GraphicsDeviceManager.DefaultBackBufferHeight - (_frameHeight + position.Y);
+            _distance.x2 = graphicsDeviceManager.GraphicsDevice.Viewport.Width - ((float)_frameWidth + position.X);
+            _distance.y2 = GraphicsDeviceManager.DefaultBackBufferHeight - ((float)_frameHeight + position.Y);
             return new float[4] {_distance.x1,_distance.y1,_distance.x2,_distance.y2};
                                 
         }                       

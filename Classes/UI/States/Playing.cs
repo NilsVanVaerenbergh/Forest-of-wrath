@@ -14,20 +14,23 @@ namespace Forest_of_wrath.Classes.UI.States
         UIHandler instance;
         KeyHandler controls;
         HeroClass hero;
-        Hitbox mainHeroHitBox;
+        Text Health;
+
+
         public Playing(ContentManager content, UIHandler instance, GraphicsDeviceManager graphicsDevice)
         {
             this.content = content;
             this.instance = instance;
-            hero = new HeroClass(content);
+            hero = new HeroClass(content, graphicsDevice);
             controls = new KeyHandler(hero);
-            mainHeroHitBox = new Hitbox(graphicsDevice);
-            mainHeroHitBox.Load(22, 65);
+            SpriteFont font = content.Load<SpriteFont>("Font/title_12");
+            Health = new Text($"Health: {hero.Health}", new Vector2(25f), font, Color.Gold, false);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            mainHeroHitBox.Draw(spriteBatch, new Vector2(hero._position.X + 75f, hero._position.Y + 59f));
+            Health.updateString($"Health: {hero.Health}");
+            Health.Draw(spriteBatch);
             hero.Draw(spriteBatch);
         }
 

@@ -61,7 +61,7 @@ namespace Forest_of_wrath.Classes.UI.States
             heroAnimation.AddFrame(new AnimationFrame(new Rectangle(heroFrameWidth * 5, 0, heroFrameWidth, hero.Height)));
             heroAnimation.AddFrame(new AnimationFrame(new Rectangle(heroFrameWidth * 6, 0, heroFrameWidth, hero.Height)));
             heroAnimation.AddFrame(new AnimationFrame(new Rectangle(heroFrameWidth * 7, 0, heroFrameWidth, hero.Height)));
-            start = new Text("Press to start", new Vector2(titlePos.X, 400f), font[0], Color.White, true);
+            start = new Text("Press a button to start", new Vector2(titlePos.X, 400f), font[0], Color.White, true);
             blink = new BlinkText(start);
             this.instance = instance;
             song = content.Load<Song>("Sound/Game");
