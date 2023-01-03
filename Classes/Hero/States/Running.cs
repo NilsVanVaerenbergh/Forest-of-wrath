@@ -80,6 +80,8 @@ namespace Forest_of_wrath.Classes.Hero.States
             _currentPosition += _velocity;
             _animation.Update(gameTime);
             _heroInstance.setPosition(_currentPosition);
+
+
             // Previous Move code from HeroClass
             //if (_state is not Running && _state is not Jumping)
             //{

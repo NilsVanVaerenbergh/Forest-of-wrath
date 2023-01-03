@@ -40,6 +40,7 @@ namespace Forest_of_wrath.Classes.UI
         }
         public void setState(UiState state)
         {
+            // change to switch case statement 
             if (state == UiState.MAIN) uiState = new MainMenu(content, this);
             if (state == UiState.GAMEOVER) uiState = new GameOver(content, this);
             if (state == UiState.PLAYING) uiState = new Playing(content, this);
