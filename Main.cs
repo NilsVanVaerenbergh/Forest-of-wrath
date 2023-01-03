@@ -48,8 +48,17 @@ namespace Forest_of_wrath
             // TODO: use this.Content to load your game content here
             debugFont = this.Content.Load<SpriteFont>("Font/debug");
             debugText = new Text("debug", new Vector2(5f), debugFont, Color.White);
-            _ui = new UIHandler(this.Content);
+            _ui = new UIHandler(this.Content, _graphics);
         }
+
+
+
+        protected override void UnloadContent()
+        {
+            base.UnloadContent();
+        }
+
+
         protected override void Update(GameTime gameTime)
         {
 

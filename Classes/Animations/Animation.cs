@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Forest_of_wrath.Classes
+namespace Forest_of_wrath.Classes.Animations
 {
     internal class Animation
     {
@@ -22,7 +22,7 @@ namespace Forest_of_wrath.Classes
         {
             _frames.Add(frame);
             _currentFrame = _frames[0];
-            _lastFrame = _frames[_frames.Count-1];
+            _lastFrame = _frames[_frames.Count - 1];
             _firstFrame = _frames[0];
         }
         public void Update(GameTime gameTime)

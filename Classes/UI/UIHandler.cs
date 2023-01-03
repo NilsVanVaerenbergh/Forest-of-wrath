@@ -21,12 +21,14 @@ namespace Forest_of_wrath.Classes.UI
         BackgroundHandler background;
         IUiStateObject uiState;
         ContentManager content;
-        public UIHandler(ContentManager content)
+        GraphicsDeviceManager graphicsDeviceManager;
+        public UIHandler(ContentManager content, GraphicsDeviceManager graphicsDevice)
         {
             header = new Header(content);
             background = new BackgroundHandler(content);
             uiState = new MainMenu(content, this);
             this.content = content;
+            graphicsDeviceManager = graphicsDevice;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -43,7 +45,7 @@ namespace Forest_of_wrath.Classes.UI
             // change to switch case statement 
             if (state == UiState.MAIN) uiState = new MainMenu(content, this);
             if (state == UiState.GAMEOVER) uiState = new GameOver(content, this);
-            if (state == UiState.PLAYING) uiState = new Playing(content, this);
+            if (state == UiState.PLAYING) uiState = new Playing(content, this, graphicsDeviceManager);
         }
     }
 }

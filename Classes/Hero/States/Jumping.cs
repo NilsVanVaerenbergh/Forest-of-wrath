@@ -1,4 +1,5 @@
-﻿using Forest_of_wrath.Classes.Handlers;
+﻿using Forest_of_wrath.Classes.Animations;
+using Forest_of_wrath.Classes.Handlers;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;

@@ -1,4 +1,4 @@
-﻿using Forest_of_wrath.Classes;
+﻿using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Hero.States;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
@@ -11,7 +11,7 @@ namespace Forest_of_wrath.Classes.Hero
     {
         private IStateObject _state;
         private int _heightOffset;
-        private Vector2 _position;
+        public Vector2 _position;
         ContentManager _content;
         private SpriteEffects _flip;
         public int baseVelocity { get; set; }

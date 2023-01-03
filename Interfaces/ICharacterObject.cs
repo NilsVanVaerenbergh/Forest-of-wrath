@@ -1,4 +1,4 @@
-﻿using Forest_of_wrath.Classes;
+﻿using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Hero;
 using Microsoft.Xna.Framework.Graphics;
 using System;

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Forest_of_wrath.Classes.Hero.States;
+using Forest_of_wrath.Classes.Animations;
 
 namespace Forest_of_wrath.Classes.Handlers
 {

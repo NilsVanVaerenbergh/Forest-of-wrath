@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Forest_of_wrath.Classes.Animations;
 
 namespace Forest_of_wrath.Classes.Hero.States
 {
