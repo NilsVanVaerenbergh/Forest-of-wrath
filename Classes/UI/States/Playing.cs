@@ -30,16 +30,16 @@ namespace Forest_of_wrath.Classes.UI.States
             SpriteFont font = content.Load<SpriteFont>("Font/title_12");
             HealthText = new Text($"Health: {hero.Health}", new Vector2(20f, graphicsDevice.GraphicsDevice.Viewport.Height - 50f), font, Color.Gold, false);
             CurrentLevelText = new Text($"Level: 1", new Vector2(20f, graphicsDevice.GraphicsDevice.Viewport.Height - 50f + 12f), font, Color.Gold, false);
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -840, 2f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 80, 0.5f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -840, 1.1f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 80, 0.8f));
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 866, 1f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -80, 5f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -80, 0.9f));
 
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            HealthText.updateString($"Health: {hero.Health}");
+            HealthText.updateString($"Health: {hero.Health.ToString("n0")}");
             HealthText.Draw(spriteBatch);
             CurrentLevelText.Draw(spriteBatch);
             hero.Draw(spriteBatch);

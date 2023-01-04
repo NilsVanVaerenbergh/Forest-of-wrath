@@ -61,7 +61,7 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker
             {
                 Attack AttackingState = (Attack)_state;
                 AttackingState.SetHeroPosition(heroPos);
-                AttackingState.dealDamage(_heroInstance, 5f, 1f);
+                AttackingState.dealDamage(_heroInstance, 0.2f, 1f);
                 _state = AttackingState;
             }
             _state.Update(gameTime);
