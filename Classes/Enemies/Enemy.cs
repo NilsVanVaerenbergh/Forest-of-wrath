@@ -12,9 +12,9 @@ namespace Forest_of_wrath.Classes.Enemies
     internal class Enemy : ICharacterObject
     {
 
-        public int Health { get; set; }
+        public float Health { get; set; }
         public DateTime creationTime;
-        public Enemy(int newHealth) { 
+        public Enemy(float newHealth) { 
             creationTime = DateTime.Now;
             Health = newHealth;
         }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Forest_of_wrath.Classes.Enemies.ToothWalker.States;
+using Forest_of_wrath.Classes.Hero;
 
 namespace Forest_of_wrath.Classes.Enemies.ToothWalker
 {
@@ -20,17 +21,19 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker
         ContentManager _content;
         GraphicsDeviceManager graphicsDeviceManager;
         private SpriteEffects _flip;
-        public int baseVelocity { get; set; }
-        public ToothWalker(ContentManager content, GraphicsDeviceManager graphicsDevice) : base(50)
+        HeroClass _heroInstance;
+        private float _randomVelocity;
+        public ToothWalker(ContentManager content, GraphicsDeviceManager graphicsDevice, HeroClass heroInstance, float randomXPos, float randomVelocity) : base(50)
         {
             _heightOffset = 400;
-            _position = new Vector2(0, _heightOffset);
+            _position = new Vector2(randomXPos, _heightOffset);
             _content = content;
-            _state = new Running(_content, this,graphicsDevice);
+            _state = new Idle(_content, this,graphicsDevice);
             graphicsDeviceManager = graphicsDevice;
             _flip = SpriteEffects.None;
             Health = 14;
-            baseVelocity = 1;
+            _heroInstance = heroInstance;
+            _randomVelocity = randomVelocity;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -42,20 +45,26 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker
             {
                 setState(Character.CharacterState.RUNNING);
             }
-            if(_state is Running)
+            if (_state is Idle)
+            {
+                Idle idleState = (Idle)_state;
+                idleState.SetHeroPosition(heroPos);
+                _state = idleState;
+            }
+            if (_state is Running)
             {
                 Running runningState = (Running)_state;
                 runningState.SetHeroPosition(heroPos);
                 _state = runningState;
             }
-            _state.Update(gameTime);
-        }
-        public void Move()
-        {
-            if (_state is not Running)
+            if (_state is Attack)
             {
-                setState(Character.CharacterState.RUNNING);
+                Attack AttackingState = (Attack)_state;
+                AttackingState.SetHeroPosition(heroPos);
+                AttackingState.dealDamage(_heroInstance, 5f, 1f);
+                _state = AttackingState;
             }
+            _state.Update(gameTime);
         }
         public Vector2 getPosition()
         {
@@ -64,8 +73,9 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker
 
         override public void setState(Character.CharacterState state)
         {
-            if (state == Character.CharacterState.RUNNING) _state = new Running(_content, this, graphicsDeviceManager);
-            if (state == Character.CharacterState.IDLE) _state = new Idle(_content, graphicsDeviceManager);
+            if (state == Character.CharacterState.RUNNING) _state = new Running(_content, this, graphicsDeviceManager, _randomVelocity);
+            if (state == Character.CharacterState.IDLE) _state = new Idle(_content, this,graphicsDeviceManager);
+            if (state == Character.CharacterState.ATTACK) _state = new Attack(_content, this, graphicsDeviceManager);
             if (state == Character.CharacterState.DEATH) _state = new Death(_content);
         }
         public IStateObject getState()

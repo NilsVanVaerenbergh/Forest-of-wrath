@@ -1,5 +1,6 @@
 ﻿using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Collision;
+using Forest_of_wrath.Classes.Handlers;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -13,17 +14,19 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
     {
         Texture2D _enemyTexture;
         public Animation _animation;
-        Hitbox bodyHitBox;
+        public Hitbox bodyHitBox { get; set; }
+        ToothWalker _EnemyInstance;
         public int frameWidth { get; set; }
-        Hitbox IStateObject.bodyHitBox { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-        public Idle(ContentManager content, GraphicsDeviceManager graphicsDevice)
+        private Vector2 heroPosition;
+        private CollisionHandler _collision;
+        public Idle(ContentManager content, ToothWalker enemyInstance, GraphicsDeviceManager graphicsDevice)
         {
             /*
              *  IDLE STATE Enemies/ToothWalker/Idle
              *  FRAMES: 4
              */
             _enemyTexture = content.Load<Texture2D>("Enemies/ToothWalker/Idle");
+            _EnemyInstance= enemyInstance;
             frameWidth = _enemyTexture.Width / 4;
             _animation = new Animation(4);
             _animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, frameWidth, _enemyTexture.Height)));
@@ -32,6 +35,7 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 3, 0, frameWidth, _enemyTexture.Height)));
             bodyHitBox = new Hitbox(graphicsDevice);
             bodyHitBox.Load(13, 45);
+            _collision = new CollisionHandler(13, 45, graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
@@ -40,7 +44,16 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
         }
         public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
+            float[] distance = _collision.distanceFromHero(bodyHitBox.HitBoxPosition, heroPosition);
+            if (distance[2] < 0f && _EnemyInstance.getState() is not Running)
+            {
+                _EnemyInstance.setState(Character.CharacterState.RUNNING);
+            }
             _animation.Update(gameTime);
+        }
+        public void SetHeroPosition(Vector2 position)
+        {
+            heroPosition = position;
         }
     }
 }

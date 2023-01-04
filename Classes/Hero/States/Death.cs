@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Collision;
+using Forest_of_wrath.Classes.UI;
 
 namespace Forest_of_wrath.Classes.Hero.States
 {
@@ -17,8 +18,9 @@ namespace Forest_of_wrath.Classes.Hero.States
 
         private SoundEffect _sound;
 
+        UIHandler _uiInstance;
 
-        public Death(ContentManager content)
+        public Death(ContentManager content, GraphicsDeviceManager graphicsDevice)
         {
             /*
              *  DEATH STATE Hero/Death
@@ -37,17 +39,28 @@ namespace Forest_of_wrath.Classes.Hero.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 6, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 8, 0, frameWidth, _heroTexture.Height)));
             _sound.Play();
+            bodyHitBox = new Hitbox(graphicsDevice);
+            bodyHitBox.Load(50, 40);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
             spriteBatch.Draw(_heroTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+            bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 50f, position.Y + _heroTexture.Height - 40f));
         }
         public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
             if(_animation._currentFrame != _animation._lastFrame)
             {
                 _animation.Update(gameTime);
-            } 
+            } else
+            {
+                _uiInstance.setState(UiState.GAMEOVER);
+            }
+        }
+
+        public void setUiInstance(UIHandler instance)
+        {
+            _uiInstance = instance;
         }
     }
 }

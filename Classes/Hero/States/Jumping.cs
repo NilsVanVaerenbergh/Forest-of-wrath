@@ -45,12 +45,15 @@ namespace Forest_of_wrath.Classes.Hero.States
             _sound.Play();
             _initialHeight = heroInstance.getPosition().Y;
             hasJumped = false;
-            _collision = new CollisionHandler(frameWidth, _heroTexture.Height, graphicsDevice);
+            bodyHitBox = new Hitbox(graphicsDevice);
+            bodyHitBox.Load(22, 65);
+            _collision = new CollisionHandler(22, 65, graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
             _currentPosition = position + _position;
             spriteBatch.Draw(_heroTexture, _currentPosition, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, _spriteEffect, 0f);
+            bodyHitBox.Draw(spriteBatch, _currentPosition);
         }
 
         public void Update(GameTime gameTime, Hitbox hitbox = null)

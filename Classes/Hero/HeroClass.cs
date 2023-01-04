@@ -1,5 +1,6 @@
 ﻿using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Hero.States;
+using Forest_of_wrath.Classes.UI;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -15,10 +16,11 @@ namespace Forest_of_wrath.Classes.Hero
         ContentManager _content;
         GraphicsDeviceManager graphicsDeviceManager;
         private SpriteEffects _flip;
+        private UIHandler _uiInstance;
         public int baseVelocity { get; set; }
-        public int Health { get; set; }
+        public float Health { get; set; }
 
-        public HeroClass(ContentManager content, GraphicsDeviceManager graphicsDevice)
+        public HeroClass(ContentManager content, GraphicsDeviceManager graphicsDevice, UIHandler uiInstance)
         {
             _heightOffset = 377;
             _position = new Vector2(0,_heightOffset);
@@ -28,6 +30,7 @@ namespace Forest_of_wrath.Classes.Hero
             _flip = SpriteEffects.None;
             Health = 100;
             baseVelocity = 2;
+            _uiInstance = uiInstance;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -36,6 +39,12 @@ namespace Forest_of_wrath.Classes.Hero
         public void Update(GameTime gameTime)
         {
             _state.Update(gameTime);
+            if(Health <= 0 && _state is not Death)
+            {
+                setState(Character.CharacterState.DEATH);
+                Death deathState = (Death)_state;
+                deathState.setUiInstance(_uiInstance);
+            }
         }
         public void Move()
         {
@@ -59,7 +68,7 @@ namespace Forest_of_wrath.Classes.Hero
         {
             if (state == Character.CharacterState.RUNNING) _state = new Running(_content, this, graphicsDeviceManager);
             if (state == Character.CharacterState.IDLE) _state = new Idle(_content, graphicsDeviceManager);
-            if (state == Character.CharacterState.DEATH) _state = new Death(_content);
+            if (state == Character.CharacterState.DEATH) _state = new Death(_content, graphicsDeviceManager);
             if (state == Character.CharacterState.JUMP) _state = new Jumping(_content, this, graphicsDeviceManager);
         }
         public IStateObject getState()
