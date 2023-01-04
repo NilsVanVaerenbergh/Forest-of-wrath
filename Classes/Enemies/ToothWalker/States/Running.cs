@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Diagnostics;
 using Keyboard = Microsoft.Xna.Framework.Input.Keyboard;
 
 namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
@@ -50,22 +51,22 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
             _sound.Play();
             _currentPosition = _EnemyInstance.getPosition();
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(13, 45, Color.Purple * 0.8f);
+            bodyHitBox.Load(13, 45, new Vector2(0, 0));
             _collision = new CollisionHandler(13, 45, graphicsDevice);
             _randomXVelocity = randomXVelocity;
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
             _currentPosition = position;
-            bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 70f, position.Y + 59f));
-            spriteBatch.Draw(_enemyTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+            bodyHitBox.Draw(spriteBatch, new Vector2(_currentPosition.X + 70f, _currentPosition.Y + 59f));
+            spriteBatch.Draw(_enemyTexture, _currentPosition, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
         public void Update(GameTime gameTime, Hitbox hitbox)
         {
             /*
              *  distance [x1,y1,x2,y2]
              */
-            float[] distance = _collision.distanceFromHero(bodyHitBox.HitBoxPosition, heroPosition);
+            float[] distance = _collision.distanceFromHero(new Vector2((float)bodyHitBox.rect.X, (float)bodyHitBox.rect.Y), heroPosition);
             System.Diagnostics.Debug.WriteLine(distance[2]);
             if (distance[2] == 0f && _EnemyInstance.getState() is not Attack)
             {

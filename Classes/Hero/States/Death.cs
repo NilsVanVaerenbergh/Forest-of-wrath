@@ -40,7 +40,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 8, 0, frameWidth, _heroTexture.Height)));
             _sound.Play();
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(50, 40, Color.DarkRed * 0.5f);
+            bodyHitBox.Load(50, 40, new Vector2(0,0));
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {

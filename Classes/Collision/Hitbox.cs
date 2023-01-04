@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,35 +12,24 @@ namespace Forest_of_wrath.Classes.Collision
 {
     internal class Hitbox : IHitBoxObject
     {
-        private GraphicsDeviceManager graphicsDeviceManager;
-        private Texture2D rect;
-        private Color[] data;
+        public Rectangle rect;
         public Vector2 HitBoxPosition;
-        private Color hitBoxColor;
-
+        Texture2D pixelTexture;
         public Hitbox(GraphicsDeviceManager graphicsDevice)
         {
-            graphicsDeviceManager = graphicsDevice;
             HitBoxPosition = new Vector2(0f,0f);
+            pixelTexture = new Texture2D(graphicsDevice.GraphicsDevice, 1, 1);
+            pixelTexture.SetData(new Color[] { Color.White });
         }
-        public void Load(int width, int height, Color color)
+        public void Load(int width, int height, Vector2 position)
         {
-            hitBoxColor= color;
-            rect = new Texture2D(graphicsDeviceManager.GraphicsDevice,width, height);
-            data = new Color[width * height];
-            for(int i=0; i<data.Length; i++) {
-                data[i] = Color.White;
-            }
-            rect.SetData(data);
+            rect = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
-        public void Unload()
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            rect.Dispose();
-        }
-        public void Draw(SpriteBatch spriteBatch, Vector2 pos)
-        {
-            HitBoxPosition = pos;
-            spriteBatch.Draw(rect,pos,hitBoxColor);
+            rect.X = (int)position.X;
+            rect.Y = (int)position.Y;
+            spriteBatch.Draw(pixelTexture, rect, Color.Aquamarine * 0.5f);
         }
     }
 }

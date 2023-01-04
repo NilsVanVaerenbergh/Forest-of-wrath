@@ -30,7 +30,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 3, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 4, 0, frameWidth, _heroTexture.Height)));
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(22, 65, Color.White * 0.5f);
+            bodyHitBox.Load(22, 65, new Vector2(0, 0));
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace Forest_of_wrath.Classes.Hero
 {
@@ -16,11 +17,15 @@ namespace Forest_of_wrath.Classes.Hero
         public Vector2 _position;
         ContentManager _content;
         GraphicsDeviceManager graphicsDeviceManager;
-        private SpriteEffects _flip;
+        public SpriteEffects _flip;
         private UIHandler _uiInstance;
         public int baseVelocity { get; set; }
         public float Health { get; set; }
-        public HeroClass(ContentManager content, GraphicsDeviceManager graphicsDevice, UIHandler uiInstance)
+        public float HeroDamage { get; set; }
+
+        private List<IEnemyObject> _enemyList;
+
+        public HeroClass(ContentManager content, GraphicsDeviceManager graphicsDevice, UIHandler uiInstance, List<IEnemyObject> enemyList)
         {
             _heightOffset = 377;
             _position = new Vector2(0,_heightOffset);
@@ -29,8 +34,10 @@ namespace Forest_of_wrath.Classes.Hero
             graphicsDeviceManager = graphicsDevice;
             _flip = SpriteEffects.None;
             Health = 100;
+            HeroDamage = 25f;
             baseVelocity = 2;
             _uiInstance = uiInstance;
+            _enemyList = enemyList;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -60,6 +67,14 @@ namespace Forest_of_wrath.Classes.Hero
                 setState(Character.CharacterState.JUMP);
             }
         }
+
+        public void invokeAttack()
+        {
+            if (_state is not Attack)
+            {
+                setState(Character.CharacterState.ATTACK);
+            }
+        }
         public Vector2 getPosition()
         {
             return _position;
@@ -69,6 +84,7 @@ namespace Forest_of_wrath.Classes.Hero
             if (state == Character.CharacterState.RUNNING) _state = new Running(_content, this, graphicsDeviceManager);
             if (state == Character.CharacterState.IDLE) _state = new Idle(_content, graphicsDeviceManager);
             if (state == Character.CharacterState.DEATH) _state = new Death(_content, graphicsDeviceManager);
+            if (state == Character.CharacterState.ATTACK) _state = new Attack(_content ,this, graphicsDeviceManager, _enemyList);
             if (state == Character.CharacterState.JUMP) _state = new Jumping(_content, this, graphicsDeviceManager);
         }
         public IStateObject getState()

@@ -29,11 +29,11 @@ namespace Forest_of_wrath
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            IsMouseVisible = true;
         }
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            IsMouseVisible = true;
             _color = new Color(12, 17, 34);
             _graphics.PreferredBackBufferHeight = 680;
             _graphics.PreferredBackBufferWidth = 928;

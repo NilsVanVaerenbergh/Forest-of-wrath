@@ -5,8 +5,7 @@ using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-
+using System.Diagnostics;
 
 namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
 {
@@ -34,18 +33,19 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 2, 0, frameWidth, _enemyTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 3, 0, frameWidth, _enemyTexture.Height)));
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(13, 45, Color.White * 0.5f);
+            bodyHitBox.Load(13, 45, new Vector2(0, 0));
             _collision = new CollisionHandler(13, 45, graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
-            bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 70f, position.Y + 59f));
+            bodyHitBox.Draw(spriteBatch,new Vector2(position.X + 70f, position.Y + 59f));
             spriteBatch.Draw(_enemyTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
         public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
-            float[] distance = _collision.distanceFromHero(bodyHitBox.HitBoxPosition, heroPosition);
-            if (distance[2] < 0f && _EnemyInstance.getState() is not Running)
+            float[] distance = _collision.distanceFromHero(new Vector2((float)bodyHitBox.rect.X, (float)bodyHitBox.rect.Y), heroPosition);
+            Debug.WriteLine(distance[2]);
+            if (distance[2] != 0f && _EnemyInstance.getState() is not Running)
             {
                 _EnemyInstance.setState(Character.CharacterState.RUNNING);
             }

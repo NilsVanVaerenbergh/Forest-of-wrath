@@ -45,6 +45,12 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker
             {
                 setState(Character.CharacterState.RUNNING);
             }
+
+            if(Health <= 0f && _state is not Death)
+            {
+                setState(Character.CharacterState.DEATH);
+            }
+
             if (_state is Idle)
             {
                 Idle idleState = (Idle)_state;
@@ -76,7 +82,7 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker
             if (state == Character.CharacterState.RUNNING) _state = new Running(_content, this, graphicsDeviceManager, _randomVelocity);
             if (state == Character.CharacterState.IDLE) _state = new Idle(_content, this,graphicsDeviceManager);
             if (state == Character.CharacterState.ATTACK) _state = new Attack(_content, this, graphicsDeviceManager);
-            if (state == Character.CharacterState.DEATH) _state = new Death(_content);
+            if (state == Character.CharacterState.DEATH) _state = new Death(_content, graphicsDeviceManager);
         }
         public IStateObject getState()
         {
@@ -89,6 +95,11 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker
         public void setPosition(Vector2 position)
         {
             _position = position;
+        }
+
+        public void setHealth(float damage)
+        {
+            Health -= damage;
         }
     }
 }

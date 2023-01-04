@@ -10,13 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Forest_of_wrath.Classes.Hero.States;
 using Forest_of_wrath.Classes.Animations;
+using System.Diagnostics;
 
 namespace Forest_of_wrath.Classes.Handlers
 {
     internal class KeyHandler : IHandler
     {
         private KeyboardState oldState;
-        HeroClass _hero;
+        private HeroClass _hero;
+        private MouseState oldMouseState;
         public KeyHandler(HeroClass hero)
         {
             _hero = hero;
@@ -25,6 +27,16 @@ namespace Forest_of_wrath.Classes.Handlers
         public void Handle()
         {
             KeyboardState newState = Keyboard.GetState();
+            MouseState newMouseState;
+            newMouseState = Mouse.GetState();
+            if(_hero.getState() is Idle)
+            {
+                if (oldMouseState.LeftButton == ButtonState.Released && newMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    _hero.invokeAttack();
+                    Debug.WriteLine(_hero.getState());
+                }
+            }
             if (_hero.getState() is not Jumping && _hero.getState() is not Death)
             {
                 if (newState.IsKeyUp(Keys.Up) && newState.IsKeyDown(Keys.Left) && !oldState.IsKeyDown(Keys.Left) || newState.IsKeyDown(Keys.Right) && !oldState.IsKeyDown(Keys.Right))
@@ -63,6 +75,7 @@ namespace Forest_of_wrath.Classes.Handlers
                 _hero.Jump();
             }
             oldState = newState;
+            oldMouseState = newMouseState;
         }
     }
 }

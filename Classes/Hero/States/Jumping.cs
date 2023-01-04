@@ -46,7 +46,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _initialHeight = heroInstance.getPosition().Y;
             hasJumped = false;
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(22, 65, Color.Purple * 0.8f);
+            bodyHitBox.Load(22, 65, new Vector2(0, 0));
             _collision = new CollisionHandler(22, 65, graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
@@ -62,7 +62,6 @@ namespace Forest_of_wrath.Classes.Hero.States
              *  distance [x1,y1,x2,y2]
              */
             float[] distance = _collision.distanceFromWindow(_heroInstance.getPosition());
-            Debug.WriteLine(distance[0]);
             if (_heroInstance.getState() == this)
             {
                 _position += _velocity;
