@@ -30,6 +30,11 @@ namespace Forest_of_wrath.Classes.Handlers
             _distance.y2 = GraphicsDeviceManager.DefaultBackBufferHeight - ((float)_frameHeight + position.Y);
             return new float[4] {_distance.x1,_distance.y1,_distance.x2,_distance.y2};
                                 
-        }                       
+        }
+        public float[] distanceFromHero(Vector2 heroPosition, Vector2 entityPosition)
+        {
+            float distanceX = heroPosition.X - entityPosition.X;
+            return new float[3] {entityPosition.X,entityPosition.Y, distanceX}; 
+        }
     }                           
 }

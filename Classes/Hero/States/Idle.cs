@@ -13,7 +13,7 @@ namespace Forest_of_wrath.Classes.Hero.States
     {
         Texture2D _heroTexture;
         Animation _animation;
-        Hitbox bodyHitBox;
+        public Hitbox bodyHitBox { get; set; }
         public int frameWidth { get; set; }
         public Idle(ContentManager content, GraphicsDeviceManager graphicsDevice)
         {
@@ -37,7 +37,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 75f, position.Y + 59f));
             spriteBatch.Draw(_heroTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
             _animation.Update(gameTime);
         }

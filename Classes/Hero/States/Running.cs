@@ -22,9 +22,9 @@ namespace Forest_of_wrath.Classes.Hero.States
         private Vector2 _velocity;
         private CollisionHandler _collision;
         public int frameWidth { get; set; }
-        private SoundEffect _sound;
+        public Hitbox bodyHitBox { get; set; }
 
-        Hitbox bodyHitBox;
+        private SoundEffect _sound;
         public Running(ContentManager content, HeroClass heroInstance, GraphicsDeviceManager graphicsDevice)
         {
             /*
@@ -57,12 +57,12 @@ namespace Forest_of_wrath.Classes.Hero.States
             bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 75f, position.Y + 59f));
             spriteBatch.Draw(_heroTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
             /*
              *  distance [x1,y1,x2,y2]
              */
-            float[] distance = _collision.distanceFromWindow(bodyHitBox.hitBoxPosition);
+            float[] distance = _collision.distanceFromWindow(bodyHitBox.HitBoxPosition);
             if(Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 if(Keyboard.GetState().IsKeyDown(Keys.Right) || distance[0] <= 0) 

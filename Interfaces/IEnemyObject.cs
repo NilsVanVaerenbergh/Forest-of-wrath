@@ -8,14 +8,9 @@ using System.Threading.Tasks;
 
 namespace Forest_of_wrath.Interfaces
 {
-    internal interface IHitBoxObject
+    internal interface IEnemyObject
     {
-
-        public void Load() { }
-        public void Unload() { }
-
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 pos) { }
-
+        void Update(GameTime gameTime, Vector2 heroPos);
+        void Draw(SpriteBatch spriteBatch);
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Forest_of_wrath.Classes.Animations;
+using Forest_of_wrath.Classes.Collision;
 
 namespace Forest_of_wrath.Classes.Hero.States
 {
@@ -11,6 +12,7 @@ namespace Forest_of_wrath.Classes.Hero.States
         Texture2D _heroTexture;
         Animation _animation;
         public int frameWidth { get; set; }
+        public Hitbox bodyHitBox { get; set; }
         public Attack(ContentManager content)
         {
             /*
@@ -29,7 +31,7 @@ namespace Forest_of_wrath.Classes.Hero.States
         {
             spriteBatch.Draw(_heroTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
             _animation.Update(gameTime);
         }

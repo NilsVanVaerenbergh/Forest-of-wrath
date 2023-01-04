@@ -1,4 +1,5 @@
 ﻿using Forest_of_wrath.Classes.Animations;
+using Forest_of_wrath.Classes.Collision;
 using Forest_of_wrath.Classes.Handlers;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
@@ -25,6 +26,7 @@ namespace Forest_of_wrath.Classes.Hero.States
         private SpriteEffects _spriteEffect;
         private CollisionHandler _collision;
         public int frameWidth { get; set; }
+        public Hitbox bodyHitBox { get; set; }
         public Jumping(ContentManager content, HeroClass heroInstance, GraphicsDeviceManager graphicsDevice)
         {
             /*
@@ -51,7 +53,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             spriteBatch.Draw(_heroTexture, _currentPosition, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, _spriteEffect, 0f);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
             /*
              *  distance [x1,y1,x2,y2]
