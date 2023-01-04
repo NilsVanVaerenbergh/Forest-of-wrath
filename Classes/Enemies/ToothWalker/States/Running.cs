@@ -50,14 +50,14 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
             _sound.Play();
             _currentPosition = _EnemyInstance.getPosition();
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(22, 65);
-            _collision = new CollisionHandler(22, 65, graphicsDevice);
+            bodyHitBox.Load(13, 45, Color.Purple * 0.8f);
+            _collision = new CollisionHandler(13, 45, graphicsDevice);
             _randomXVelocity = randomXVelocity;
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
             _currentPosition = position;
-            bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 75f, position.Y + 59f));
+            bodyHitBox.Draw(spriteBatch, new Vector2(position.X + 70f, position.Y + 59f));
             spriteBatch.Draw(_enemyTexture, position, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
         public void Update(GameTime gameTime, Hitbox hitbox)
@@ -66,19 +66,20 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
              *  distance [x1,y1,x2,y2]
              */
             float[] distance = _collision.distanceFromHero(bodyHitBox.HitBoxPosition, heroPosition);
-            System.Diagnostics.Debug.WriteLine(_EnemyInstance.getState());
+            System.Diagnostics.Debug.WriteLine(distance[2]);
             if (distance[2] == 0f && _EnemyInstance.getState() is not Attack)
             {
                 _EnemyInstance.setState(Character.CharacterState.ATTACK);
             }
-            if (_EnemyInstance.getState() is not Attack && distance[2] > 15f && distance[2] < 23f)
+            if (_EnemyInstance.getState() is not Attack && distance[2] > 0f && distance[2] < 15f)
             {
                 _EnemyInstance.setState(Character.CharacterState.ATTACK);
             }
+            #region MovementAI
             if (distance[2] == 0f)
             {
                 _velocity = new Vector2(0, 0);
-            } else if (distance[2] > 22f) 
+            } else if (distance[2] > 14f)
             {
                 _velocity = new Vector2(-_randomXVelocity, 0f);
                 _EnemyInstance.setFlip(SpriteEffects.FlipHorizontally);
@@ -88,8 +89,8 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
                 _velocity = new Vector2(_randomXVelocity, 0f);
                 _EnemyInstance.setFlip(SpriteEffects.None);
             }
- 
             _currentPosition += _velocity;
+            #endregion
             _animation.Update(gameTime);
             _EnemyInstance.setPosition(_currentPosition);
         }

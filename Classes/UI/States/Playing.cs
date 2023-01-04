@@ -31,12 +31,19 @@ namespace Forest_of_wrath.Classes.UI.States
             HealthText = new Text($"Health: {hero.Health}", new Vector2(20f, graphicsDevice.GraphicsDevice.Viewport.Height - 50f), font, Color.Gold, false);
             CurrentLevelText = new Text($"Level: 1", new Vector2(20f, graphicsDevice.GraphicsDevice.Viewport.Height - 50f + 12f), font, Color.Gold, false);
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -840, 1.1f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 80, 0.8f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 80, 0.84f));
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 866, 1f));
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -80, 0.9f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -85, 1.1f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 989, 0.8f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 100, 1.5f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -6, 0.95f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -89, 1.1f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 45, 0.85f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 60, 1.4f));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -70, 0.96f));
 
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             HealthText.updateString($"Health: {hero.Health.ToString("n0")}");

@@ -46,14 +46,14 @@ namespace Forest_of_wrath.Classes.Hero.States
             _initialHeight = heroInstance.getPosition().Y;
             hasJumped = false;
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(22, 65);
+            bodyHitBox.Load(22, 65, Color.Purple * 0.8f);
             _collision = new CollisionHandler(22, 65, graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
             _currentPosition = position + _position;
+            bodyHitBox.Draw(spriteBatch, new Vector2(_currentPosition.X + 80f, _currentPosition.Y + 50f));
             spriteBatch.Draw(_heroTexture, _currentPosition, _animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, _spriteEffect, 0f);
-            bodyHitBox.Draw(spriteBatch, _currentPosition);
         }
 
         public void Update(GameTime gameTime, Hitbox hitbox = null)

@@ -5,6 +5,7 @@ using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Forest_of_wrath.Classes.Hero
 {
@@ -19,7 +20,6 @@ namespace Forest_of_wrath.Classes.Hero
         private UIHandler _uiInstance;
         public int baseVelocity { get; set; }
         public float Health { get; set; }
-
         public HeroClass(ContentManager content, GraphicsDeviceManager graphicsDevice, UIHandler uiInstance)
         {
             _heightOffset = 377;

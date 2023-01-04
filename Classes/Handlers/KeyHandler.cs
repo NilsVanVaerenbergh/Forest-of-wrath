@@ -25,7 +25,7 @@ namespace Forest_of_wrath.Classes.Handlers
         public void Handle()
         {
             KeyboardState newState = Keyboard.GetState();
-            if(_hero.getState() is not Jumping)
+            if (_hero.getState() is not Jumping && _hero.getState() is not Death)
             {
                 if (newState.IsKeyUp(Keys.Up) && newState.IsKeyDown(Keys.Left) && !oldState.IsKeyDown(Keys.Left) || newState.IsKeyDown(Keys.Right) && !oldState.IsKeyDown(Keys.Right))
                 {

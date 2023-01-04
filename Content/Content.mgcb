@@ -396,6 +396,12 @@
 /processorParam:TextureFormat=Color
 /build:Hero/Slide.png
 
+#begin Sound/Enemies/Toothwalker/stab.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Enemies/Toothwalker/stab.wav
+
 #begin Sound/Game.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

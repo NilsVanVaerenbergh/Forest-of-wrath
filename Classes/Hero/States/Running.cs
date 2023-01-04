@@ -48,7 +48,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _sound.Play();
             _currentPosition = _heroInstance.getPosition();
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(22, 65);
+            bodyHitBox.Load(22, 65, Color.Purple * 0.8f);
             _collision = new CollisionHandler(22,65,graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)

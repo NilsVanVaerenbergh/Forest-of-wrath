@@ -34,7 +34,7 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 2, 0, frameWidth, _enemyTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 3, 0, frameWidth, _enemyTexture.Height)));
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(13, 45);
+            bodyHitBox.Load(13, 45, Color.White * 0.5f);
             _collision = new CollisionHandler(13, 45, graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
