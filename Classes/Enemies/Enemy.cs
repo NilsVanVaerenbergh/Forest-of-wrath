@@ -12,8 +12,9 @@ namespace Forest_of_wrath.Classes.Enemies
 {
     internal class Enemy : ICharacterObject
     {
-
         public float Health { get; set; }
+
+        public float baseDamage { get; set; }
         public float multiplier { get; set; }
         public Enemy(float newHealth) { 
             Health = newHealth;

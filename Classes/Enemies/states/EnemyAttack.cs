@@ -5,6 +5,7 @@ using Forest_of_wrath.Classes.Hero;
 using Forest_of_wrath.Classes.Hero.States;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SharpDX.Direct3D9;
@@ -23,6 +24,8 @@ namespace Forest_of_wrath.Classes.Enemies.states
         public int frameWidth { get; set; }
         public Animation animation { get; set; }
         private Texture2D enemyTexture;
+
+        private SoundEffect sound;
         // Mechanics:
         public Hitbox bodyHitBox { get; set; }
         private float[] hitboxOffset = new float[2];
@@ -35,7 +38,7 @@ namespace Forest_of_wrath.Classes.Enemies.states
         private Enemy enemyInstance;
 
 
-        public EnemyAttack(ContentManager content, GraphicsDeviceManager graphicsDevice, Enemy enemyInstance, string locationPath, int frames, int[] hitBoxSize, float[] hitBoxOffset)
+        public EnemyAttack(ContentManager content, GraphicsDeviceManager graphicsDevice, Enemy enemyInstance, string locationPath, string soundLocation, int frames, int[] hitBoxSize, float[] hitBoxOffset)
         {
             if (hitBoxSize.Length > 2 || hitBoxSize.Length <= 0) { throw new ArgumentException("int[2] hitBoxSize should contain 2 integers (width,height) example: [13,45]"); }
             if (hitBoxOffset.Length > 2 || hitBoxOffset.Length <= 0)
@@ -47,6 +50,7 @@ namespace Forest_of_wrath.Classes.Enemies.states
                 this.hitboxOffset = hitBoxOffset;
             }
             enemyTexture = content.Load<Texture2D>(locationPath);
+            sound = content.Load<SoundEffect>(soundLocation);
             this.enemyInstance = enemyInstance;
             frameWidth = enemyTexture.Width / frames;
             animation = new Animation(frames);
@@ -76,7 +80,7 @@ namespace Forest_of_wrath.Classes.Enemies.states
         }
         public void Update(GameTime gameTime)
         {
-            float[] distance = collision.distanceFromHero(new Vector2((float)bodyHitBox.rect.X, (float)bodyHitBox.rect.Y), heroPosition);
+            float[] distance = collision.distanceFromHero(new Vector2(bodyHitBox.rect.X, bodyHitBox.rect.Y), heroPosition);
             if (distance[2] < 0f && enemyInstance.getState() is not EnemyRunning)
             {
                 enemyInstance.setState(Character.CharacterState.RUNNING);
@@ -93,17 +97,17 @@ namespace Forest_of_wrath.Classes.Enemies.states
         }
         virtual public void DealDamage(HeroClass hero, float multiplier)
         {
-            //TimeSpan soundDuration = sound.Duration;
-            //if (animation._currentFrame == animation._lastFrame)
-            //{
-            //    TimeSpan elapsedTime = DateTime.Now - LastDamagedTime;
-            //    if (elapsedTime >= soundDuration)
-            //    {
-            //        //sound.Play();
-            //        LastDamagedTime = DateTime.Now;
-            //    }
-            //    hero.Health -= 0.2f * multiplier;
-            //}
+            TimeSpan soundDuration = sound.Duration;
+            if (animation._currentFrame == animation._lastFrame)
+            {
+                TimeSpan elapsedTime = DateTime.Now - LastDamagedTime;
+                if (elapsedTime >= soundDuration)
+                {
+                    sound.Play();
+                    LastDamagedTime = DateTime.Now;
+                }
+                hero.Health -= enemyInstance.baseDamage * multiplier;
+            }
         }
     }
 }
