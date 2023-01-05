@@ -1,4 +1,5 @@
 ﻿using Forest_of_wrath.Classes.Animations;
+using Forest_of_wrath.Classes.Collision;
 using Forest_of_wrath.Classes.Hero.States;
 using Forest_of_wrath.Classes.UI;
 using Forest_of_wrath.Interfaces;
@@ -98,6 +99,10 @@ namespace Forest_of_wrath.Classes.Hero
         public void setPosition(Vector2 position)
         {
             _position = position;
+        }
+        public Hitbox GetHeroHitbox()
+        {
+            return _state.bodyHitBox;
         }
     }
 

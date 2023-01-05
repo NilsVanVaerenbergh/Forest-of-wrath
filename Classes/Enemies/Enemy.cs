@@ -1,5 +1,6 @@
 ﻿using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Interfaces;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,8 @@ namespace Forest_of_wrath.Classes.Enemies
     {
 
         public float Health { get; set; }
-        public DateTime creationTime;
         public float multiplier { get; set; }
         public Enemy(float newHealth) { 
-            creationTime = DateTime.Now;
             Health = newHealth;
         }
         virtual public void setFlip(SpriteEffects effect)
@@ -24,6 +23,14 @@ namespace Forest_of_wrath.Classes.Enemies
             throw new NotImplementedException();
         }
         virtual public void setState(Character.CharacterState state)
+        {
+            throw new NotImplementedException();
+        }
+        virtual public IEnemyStateObject getState()
+        {
+            throw new NotImplementedException();
+        }
+        virtual public void setPosition(Vector2 positon)
         {
             throw new NotImplementedException();
         }

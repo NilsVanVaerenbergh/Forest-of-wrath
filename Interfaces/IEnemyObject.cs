@@ -17,7 +17,7 @@ namespace Forest_of_wrath.Interfaces
         void Update(GameTime gameTime, Vector2 heroPos, float multiplier);
         void Draw(SpriteBatch spriteBatch);
 
-        IStateObject getState();
+        IEnemyStateObject getState();
         void setState(Character.CharacterState state);
         void setHealth(float damage);
         float getHealth();

@@ -8,6 +8,7 @@ using Forest_of_wrath.Classes.UI;
 using System.Collections.Generic;
 using Forest_of_wrath.Classes.Enemies;
 using Forest_of_wrath.Classes.Enemies.ToothWalker.States;
+using Forest_of_wrath.Classes.Enemies.states;
 
 namespace Forest_of_wrath.Classes.Hero.States
 {
@@ -67,7 +68,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             {
                 if (swordHitBox.rect.Intersects(enemy.getState().bodyHitBox.rect))
                 {
-                    if (enemy.getHealth() > 0 && enemy.getState() is not TakeHit)
+                    if (enemy.getHealth() > 0 && enemy.getState() is not EnemyTakeHit)
                     {
                         enemy.setState(Character.CharacterState.TAKEHIT);
                         if(_animation._firstFrame == _animation._currentFrame)

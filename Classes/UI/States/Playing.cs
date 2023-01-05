@@ -1,8 +1,8 @@
 ﻿using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Collision;
 using Forest_of_wrath.Classes.Enemies;
+using Forest_of_wrath.Classes.Enemies.states;
 using Forest_of_wrath.Classes.Enemies.ToothWalker;
-using Forest_of_wrath.Classes.Enemies.ToothWalker.States;
 using Forest_of_wrath.Classes.Handlers;
 using Forest_of_wrath.Classes.Hero;
 using Forest_of_wrath.Classes.Hero.States;
@@ -56,8 +56,6 @@ namespace Forest_of_wrath.Classes.UI.States
         public void Draw(SpriteBatch spriteBatch)
         {
             HealthText.updateString(hero.Health < 0f ? "Health: 0" : $"Health: {hero.Health.ToString("n0")}");
-
-            Debug.WriteLine(hero.Health);
             HealthText.Draw(spriteBatch);
             CurrentLevelText.updateString($"Level: {CurrentLevel.ToString("n0")}");
             CurrentLevelText.Draw(spriteBatch);
@@ -103,13 +101,13 @@ namespace Forest_of_wrath.Classes.UI.States
             {
                 for (int i = 0; i < enemyList.Count; i++)
                 {
-                    if (enemyList[i].getState() is Enemies.ToothWalker.States.Death)
+                    if (enemyList[i].getState() is EnemyDeath)
                     {
                         KilledEnemies++;
                         killedList.Add(enemyList[i]);
                     }
                 }
-                enemyList.RemoveAll(enemy => enemy.getState() is Enemies.ToothWalker.States.Death);
+                enemyList.RemoveAll(enemy => enemy.getState() is EnemyDeath);
             }
         }
     }
