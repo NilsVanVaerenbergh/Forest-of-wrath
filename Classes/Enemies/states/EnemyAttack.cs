@@ -30,7 +30,6 @@ namespace Forest_of_wrath.Classes.Enemies.states
         public Hitbox bodyHitBox { get; set; }
         private float[] hitboxOffset = new float[2];
         private CollisionHandler collision;
-        private Vector2 currentPosition;
         private DateTime LastDamagedTime;
         // Entity instances:
         private Vector2 heroPosition;
@@ -75,19 +74,27 @@ namespace Forest_of_wrath.Classes.Enemies.states
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {
-            bodyHitBox.Draw(spriteBatch, new Vector2(currentPosition.X + hitboxOffset[0], currentPosition.Y + hitboxOffset[1]));
-            spriteBatch.Draw(enemyTexture, currentPosition, animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+            bodyHitBox.Draw(spriteBatch, new Vector2(position.X + hitboxOffset[0], position.Y + hitboxOffset[1]));
+            spriteBatch.Draw(enemyTexture, position, animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
         public void Update(GameTime gameTime)
         {
             float[] distance = collision.distanceFromHero(new Vector2(bodyHitBox.rect.X, bodyHitBox.rect.Y), heroPosition);
             if (distance[2] < 0f && enemyInstance.getState() is not EnemyRunning)
             {
-                enemyInstance.setState(Character.CharacterState.RUNNING);
+                if(animation._currentFrame == animation._lastFrame)
+                {
+                    enemyInstance.setState(Character.CharacterState.RUNNING);
+
+                }
             }
             if (distance[2] > 20f && enemyInstance.getState() is not EnemyRunning)
             {
-                enemyInstance.setState(Character.CharacterState.RUNNING);
+                if (animation._currentFrame == animation._lastFrame)
+                {
+                    enemyInstance.setState(Character.CharacterState.RUNNING);
+
+                }
             }
             animation.Update(gameTime);
         }

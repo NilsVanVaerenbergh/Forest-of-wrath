@@ -74,7 +74,17 @@ namespace Forest_of_wrath.Classes.Enemies.states
         public void Update(GameTime gameTime)
         {
             float[] distance = collision.distanceFromHero(new Vector2(bodyHitBox.rect.X, bodyHitBox.rect.Y), heroPosition);
-            if (bodyHitBox.rect.Intersects(heroHitBox.rect) && enemyInstance.getState() is not EnemyAttack)
+
+
+            if (distance[2] == 0f && enemyInstance.getState() is not EnemyAttack)
+            {
+                enemyInstance.setState(Character.CharacterState.ATTACK);
+            }
+            if(distance[2] > 0f && distance[2] < 23f && enemyInstance.getState() is not EnemyAttack)
+            {
+                enemyInstance.setState(Character.CharacterState.ATTACK);
+            }
+            if (heroHitBox.rect.Intersects(bodyHitBox.rect) && enemyInstance.getState() is not EnemyAttack)
             {
                 enemyInstance.setState(Character.CharacterState.ATTACK);
             }

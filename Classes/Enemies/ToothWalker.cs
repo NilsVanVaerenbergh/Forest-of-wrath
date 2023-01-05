@@ -57,7 +57,10 @@ namespace Forest_of_wrath.Classes.Enemies
             if (_state is EnemyAttack)
             {
                 EnemyAttack AttackingState = (EnemyAttack)_state;
-                AttackingState.DealDamage(_heroInstance, _multiplier);
+                if(_state.bodyHitBox.rect.Intersects(_heroInstance.GetHeroHitbox().rect))
+                {
+                    AttackingState.DealDamage(_heroInstance, _multiplier);
+                }
                 _state = AttackingState;
             } 
             _state.setHeroPosition(heroPos);

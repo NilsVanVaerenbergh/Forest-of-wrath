@@ -32,7 +32,7 @@ namespace Forest_of_wrath.Classes.Enemies
             _state = new EnemyIdle(_content, graphicsDeviceManager, this, "Enemies/Goblin/Idle", 4, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
             _flip = SpriteEffects.None;
             baseHealth = 2f;
-            baseDamage = 0.2f;
+            baseDamage = 50f;
             Health = baseHealth * _multiplier;
             _heroInstance = heroInstance;
             _randomVelocity = randomVelocity;
@@ -57,7 +57,10 @@ namespace Forest_of_wrath.Classes.Enemies
             if (_state is EnemyAttack)
             {
                 EnemyAttack AttackingState = (EnemyAttack)_state;
-                AttackingState.DealDamage(_heroInstance, _multiplier);
+                if (_state.bodyHitBox.rect.Intersects(_heroInstance.GetHeroHitbox().rect))
+                {
+                    AttackingState.DealDamage(_heroInstance, _multiplier);
+                }
                 _state = AttackingState;
             }
             _state.setHeroPosition(heroPos);

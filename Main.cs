@@ -46,8 +46,6 @@ namespace Forest_of_wrath
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _renderTarget = new RenderTarget2D(GraphicsDevice, 928, 680);
             // TODO: use this.Content to load your game content here
-            debugFont = this.Content.Load<SpriteFont>("Font/debug");
-            debugText = new Text("debug", new Vector2(5f), debugFont, Color.White);
             _ui = new UIHandler(this.Content, _graphics);
         }
 
@@ -65,7 +63,6 @@ namespace Forest_of_wrath
             _ui.Update(gameTime);
             // TODO: Add your update logic here
             base.Update(gameTime);
-            debugText.updateString($"w:{GraphicsDeviceManager.DefaultBackBufferWidth} | h: {GraphicsDeviceManager.DefaultBackBufferHeight}");
         }
         protected override void Draw(GameTime gameTime)
         {
@@ -74,7 +71,6 @@ namespace Forest_of_wrath
             GraphicsDevice.SetRenderTarget(_renderTarget);
             GraphicsDevice.Clear(_color);
             // TODO: Add your drawing code here
-
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(_color);
             _spriteBatch.Begin();

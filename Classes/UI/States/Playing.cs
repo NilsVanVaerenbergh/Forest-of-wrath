@@ -38,18 +38,20 @@ namespace Forest_of_wrath.Classes.UI.States
             CurrentLevelText = new Text($"Level: {CurrentLevel.ToString("n0")}", new Vector2(20f, graphicsDevice.GraphicsDevice.Viewport.Height - 50f + 12f), font, Color.Gold, false);
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
             enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
             enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
             enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
+            enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
+            enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
+
 
             KilledEnemies = 0;
             totalEnemies = enemyList.Count;
             addedHealth = false;
-
         }
         public void Draw(SpriteBatch spriteBatch)
         {
