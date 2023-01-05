@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace Forest_of_wrath.Classes.Enemies.states
         // Entity instances:
         private Vector2 heroPosition;
         private Enemy enemyInstance;
-        public EnemyRunning(ContentManager content, GraphicsDeviceManager graphicsDevice, Enemy enemyInstance, string locationPath, int frames, int[] hitBoxSize, float[] hitBoxOffset, float randomXVelocity) 
+        public EnemyRunning(ContentManager content, GraphicsDeviceManager graphicsDevice, Enemy enemyInstance, Vector2 position,string locationPath, int frames, int[] hitBoxSize, float[] hitBoxOffset, float randomXVelocity) 
         {
             if (hitBoxSize.Length > 2 || hitBoxSize.Length <= 0) { throw new ArgumentException("int[2] hitBoxSize should contain 2 integers (width,height) example: [13,45]"); }
             if (hitBoxOffset.Length > 2 || hitBoxOffset.Length <= 0)
@@ -40,6 +41,7 @@ namespace Forest_of_wrath.Classes.Enemies.states
             {
                 this.hitboxOffset = hitBoxOffset;
             }
+            currentPosition = position;
             enemyTexture = content.Load<Texture2D>(locationPath);
             this.enemyInstance = enemyInstance;
             frameWidth = enemyTexture.Width / frames;
@@ -65,7 +67,7 @@ namespace Forest_of_wrath.Classes.Enemies.states
         {
             currentPosition = position;
             bodyHitBox.Draw(spriteBatch, new Vector2(currentPosition.X + hitboxOffset[0], currentPosition.Y + hitboxOffset[1]));
-            spriteBatch.Draw(enemyTexture, currentPosition, animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+            spriteBatch.Draw(enemyTexture, new Vector2(currentPosition.X, currentPosition.Y), animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
         public void Update(GameTime gameTime)
         {
@@ -95,9 +97,9 @@ namespace Forest_of_wrath.Classes.Enemies.states
                 enemyInstance.setFlip(SpriteEffects.None);
             }
             currentPosition += velocity;
+            enemyInstance.setPosition(currentPosition);
             #endregion
             animation.Update(gameTime);
-            enemyInstance.setPosition(currentPosition);
         }
         public void setHeroPosition(Vector2 position)
         {

@@ -4,10 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Collision;
-using Forest_of_wrath.Classes.UI;
 using System.Collections.Generic;
-using Forest_of_wrath.Classes.Enemies;
-using Forest_of_wrath.Classes.Enemies.ToothWalker.States;
 using Forest_of_wrath.Classes.Enemies.states;
 
 namespace Forest_of_wrath.Classes.Hero.States

@@ -1,14 +1,6 @@
-﻿using Forest_of_wrath.Classes;
-using Forest_of_wrath.Classes.Collision;
-using Forest_of_wrath.Classes.Enemies.ToothWalker.States;
+﻿using Forest_of_wrath.Classes.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Forest_of_wrath.Interfaces
 {
     internal interface IStateObject

@@ -1,11 +1,8 @@
 ﻿using Forest_of_wrath.Classes.Animations;
-using Forest_of_wrath.Classes.Collision;
 using Forest_of_wrath.Classes.Enemies;
 using Forest_of_wrath.Classes.Enemies.states;
-using Forest_of_wrath.Classes.Enemies.ToothWalker;
 using Forest_of_wrath.Classes.Handlers;
 using Forest_of_wrath.Classes.Hero;
-using Forest_of_wrath.Classes.Hero.States;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -13,7 +10,6 @@ using Microsoft.Xna.Framework.Graphics;
 using SharpDX;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Color = Microsoft.Xna.Framework.Color;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
@@ -46,8 +42,7 @@ namespace Forest_of_wrath.Classes.UI.States
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+
             KilledEnemies = 0;
             totalEnemies = enemyList.Count;
             addedHealth = false;
