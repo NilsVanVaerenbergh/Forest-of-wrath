@@ -67,7 +67,6 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
              *  distance [x1,y1,x2,y2]
              */
             float[] distance = _collision.distanceFromHero(new Vector2((float)bodyHitBox.rect.X, (float)bodyHitBox.rect.Y), heroPosition);
-            System.Diagnostics.Debug.WriteLine(distance[2]);
             if (distance[2] == 0f && _EnemyInstance.getState() is not Attack)
             {
                 _EnemyInstance.setState(Character.CharacterState.ATTACK);

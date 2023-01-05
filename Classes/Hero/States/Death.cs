@@ -20,7 +20,7 @@ namespace Forest_of_wrath.Classes.Hero.States
 
         UIHandler _uiInstance;
 
-        public Death(ContentManager content, GraphicsDeviceManager graphicsDevice)
+        public Death(ContentManager content, GraphicsDeviceManager graphicsDevice, Vector2 lastKnowPostition)
         {
             /*
              *  DEATH STATE Hero/Death
@@ -40,7 +40,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 8, 0, frameWidth, _heroTexture.Height)));
             _sound.Play();
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(50, 40, new Vector2(0,0));
+            bodyHitBox.Load(50, 40, lastKnowPostition);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {

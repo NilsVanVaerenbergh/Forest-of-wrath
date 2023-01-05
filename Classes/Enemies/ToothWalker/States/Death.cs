@@ -21,11 +21,11 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
         public Death(ContentManager content, GraphicsDeviceManager graphicsDevice)
         {
             /*
-             *  DEATH STATE Hero/Death
-             *  FRAMES: 6
+             *  DEATH STATE Enemies/Toothwalker/Death
+             *  FRAMES: 4
              */
             _enemyTexture = content.Load<Texture2D>("Enemies/Toothwalker/Death");
-            _sound = content.Load<SoundEffect>("Sound/Hero/death");
+            _sound = content.Load<SoundEffect>("Sound/Enemies/Toothwalker/tw_death");
             frameWidth = _enemyTexture.Width / 4;
             _animation = new Animation(4);
             _animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, frameWidth, _enemyTexture.Height)));

@@ -1,6 +1,8 @@
-﻿using Forest_of_wrath.Classes.Collision;
+﻿using Forest_of_wrath.Classes.Animations;
+using Forest_of_wrath.Classes.Collision;
 using Forest_of_wrath.Classes.Enemies;
 using Forest_of_wrath.Classes.Enemies.ToothWalker;
+using Forest_of_wrath.Classes.Enemies.ToothWalker.States;
 using Forest_of_wrath.Classes.Handlers;
 using Forest_of_wrath.Classes.Hero;
 using Forest_of_wrath.Classes.Hero.States;
@@ -8,47 +10,65 @@ using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Color = Microsoft.Xna.Framework.Color;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Forest_of_wrath.Classes.UI.States
 {
     internal class Playing : IUiStateObject
     {
-        ContentManager content;
-        UIHandler instance;
         KeyHandler controls;
         HeroClass hero;
         List<IEnemyObject> enemyList = new List<IEnemyObject>();
+        List<IEnemyObject> killedList = new List<IEnemyObject>();
         Text HealthText;
         Text CurrentLevelText;
+        public float CurrentLevel { get; set; }
+        private int KilledEnemies;
+        private int totalEnemies;
+        private bool addedHealth;
+        Random rand = new Random();
         public Playing(ContentManager content, UIHandler instance, GraphicsDeviceManager graphicsDevice)
         {
-            this.content = content;
-            this.instance = instance;
+            CurrentLevel = 1f;
             hero = new HeroClass(content, graphicsDevice, instance, enemyList);
             controls = new KeyHandler(hero);
             SpriteFont font = content.Load<SpriteFont>("Font/title_12");
             HealthText = new Text($"Health: {hero.Health}", new Vector2(20f, graphicsDevice.GraphicsDevice.Viewport.Height - 50f), font, Color.Gold, false);
-            CurrentLevelText = new Text($"Level: 1", new Vector2(20f, graphicsDevice.GraphicsDevice.Viewport.Height - 50f + 12f), font, Color.Gold, false);
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -5, 0.93f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 10, 1.14f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 80, 1.13f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -90, 0.85f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 60, 1.12f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, 5, 1.0f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -35, 0.95f));
-            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, -45, 0.8f));
+            CurrentLevelText = new Text($"Level: {CurrentLevel.ToString("n0")}", new Vector2(20f, graphicsDevice.GraphicsDevice.Viewport.Height - 50f + 12f), font, Color.Gold, false);
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            KilledEnemies = 0;
+            totalEnemies = enemyList.Count;
+            addedHealth = false;
 
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            HealthText.updateString($"Health: {hero.Health.ToString("n0")}");
+            HealthText.updateString(hero.Health < 0f ? "Health: 0" : $"Health: {hero.Health.ToString("n0")}");
+
+            Debug.WriteLine(hero.Health);
             HealthText.Draw(spriteBatch);
+            CurrentLevelText.updateString($"Level: {CurrentLevel.ToString("n0")}");
             CurrentLevelText.Draw(spriteBatch);
             hero.Draw(spriteBatch);
-            enemyList.ForEach(toothWalker =>
+            enemyList.ForEach(enemy =>
             {
-                toothWalker.Draw(spriteBatch);
+                enemy.Draw(spriteBatch);
+            });
+            killedList.ForEach(enemy =>
+            {
+                enemy.Draw(spriteBatch);
             });
         }
 
@@ -56,10 +76,41 @@ namespace Forest_of_wrath.Classes.UI.States
         {
             controls.Handle();
             hero.Update(gameTime);
-            enemyList.ForEach(toothWalker =>
+            enemyList.ForEach(enemy => enemy.Update(gameTime, new Vector2(hero._state.bodyHitBox.rect.X, hero._state.bodyHitBox.rect.Y), CurrentLevel));
+            killedList.ForEach(enemy => enemy.Update(gameTime, new Vector2(hero._state.bodyHitBox.rect.X, hero._state.bodyHitBox.rect.Y), CurrentLevel));
+            if(KilledEnemies >= totalEnemies)
             {
-                toothWalker.Update(gameTime, new Vector2(hero._state.bodyHitBox.rect.X, hero._state.bodyHitBox.rect.Y));
-            });
+                killedList.ForEach(enemy =>
+                {
+                    enemy.setHealth(enemy.baseHealth * CurrentLevel);
+                    enemy._position = new Vector2(rand.NextFloat(-200f, 1000), enemy._position.Y);
+                    enemy.setState(Character.CharacterState.IDLE);
+                });
+                KilledEnemies = 0;
+                enemyList.AddRange(killedList);
+                enemyList.ForEach(enemy => enemy.setState(Character.CharacterState.IDLE));
+                killedList.Clear();
+                if(!addedHealth)
+                {
+                    hero.HeroDamage *= CurrentLevel;
+                    CurrentLevel += 1;
+                    hero.Health += 50;
+                    addedHealth = true;
+                }
+            }
+            addedHealth= false;
+            if(enemyList.Count > 0)
+            {
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    if (enemyList[i].getState() is Enemies.ToothWalker.States.Death)
+                    {
+                        KilledEnemies++;
+                        killedList.Add(enemyList[i]);
+                    }
+                }
+                enemyList.RemoveAll(enemy => enemy.getState() is Enemies.ToothWalker.States.Death);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Forest_of_wrath.Classes.Hero.States
         Animation _animation;
         public Hitbox bodyHitBox { get; set; }
         public int frameWidth { get; set; }
-        public Idle(ContentManager content, GraphicsDeviceManager graphicsDevice)
+        public Idle(ContentManager content, GraphicsDeviceManager graphicsDevice, Vector2 lastKnowPostition)
         {
             /*
              *  IDLE STATE Hero/Idle
@@ -30,7 +30,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 3, 0, frameWidth, _heroTexture.Height)));
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 4, 0, frameWidth, _heroTexture.Height)));
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(22, 65, new Vector2(0, 0));
+            bodyHitBox.Load(22, 65, lastKnowPostition);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
         {

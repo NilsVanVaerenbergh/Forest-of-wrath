@@ -14,6 +14,7 @@ namespace Forest_of_wrath.Classes.Enemies
 
         public float Health { get; set; }
         public DateTime creationTime;
+        public float multiplier { get; set; }
         public Enemy(float newHealth) { 
             creationTime = DateTime.Now;
             Health = newHealth;

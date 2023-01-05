@@ -34,7 +34,6 @@ namespace Forest_of_wrath.Classes.Handlers
                 if (oldMouseState.LeftButton == ButtonState.Released && newMouseState.LeftButton == ButtonState.Pressed)
                 {
                     _hero.invokeAttack();
-                    Debug.WriteLine(_hero.getState());
                 }
             }
             if (_hero.getState() is not Jumping && _hero.getState() is not Death)

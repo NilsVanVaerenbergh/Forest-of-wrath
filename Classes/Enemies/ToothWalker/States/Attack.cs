@@ -54,7 +54,7 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
         }
         public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
-            Debug.WriteLine(heroPosition.X);
+        
             float[] distance = _collision.distanceFromHero(new Vector2((float)bodyHitBox.rect.X, (float)bodyHitBox.rect.Y), heroPosition);
 
 
@@ -72,18 +72,18 @@ namespace Forest_of_wrath.Classes.Enemies.ToothWalker.States
         {
             heroPosition = position;
         }
-        public void dealDamage(HeroClass hero, float damage, float multiplier)
+        public void DealDamage(HeroClass hero, float multiplier)
         {
             TimeSpan soundDuration = _sound.Duration;
             if (_animation._currentFrame == _animation._lastFrame)
-            {
+            { 
                 TimeSpan elapsedTime = DateTime.Now - LastDamagedTime;
                 if (elapsedTime >= soundDuration)
                 {
                     _sound.Play();
                     LastDamagedTime = DateTime.Now;
                 }
-                hero.Health -= damage * multiplier;
+                hero.Health -= 0.2f * multiplier;
             }
         }
     }

@@ -6,6 +6,8 @@ using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Collision;
 using Forest_of_wrath.Classes.UI;
 using System.Collections.Generic;
+using Forest_of_wrath.Classes.Enemies;
+using Forest_of_wrath.Classes.Enemies.ToothWalker.States;
 
 namespace Forest_of_wrath.Classes.Hero.States
 {
@@ -19,7 +21,7 @@ namespace Forest_of_wrath.Classes.Hero.States
         private HeroClass _heroInstance;
         private List<IEnemyObject> _enemyList;
         private float _damage;
-        public Attack(ContentManager content, HeroClass instance, GraphicsDeviceManager graphicsDevice, List<IEnemyObject> enemyList)
+        public Attack(ContentManager content, HeroClass instance, GraphicsDeviceManager graphicsDevice, List<IEnemyObject> enemyList, Vector2 lastKnowPostition)
         {
             /*
              *  Attack STATE Hero/Attack
@@ -34,7 +36,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _animation.AddFrame(new AnimationFrame(new Rectangle(frameWidth * 3, 0, frameWidth, _heroTexture.Height)));
             _heroInstance = instance;
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(22, 65, new Vector2(0,0));
+            bodyHitBox.Load(22, 65, lastKnowPostition);
             swordHitBox = new Hitbox(graphicsDevice);
             swordHitBox.Load(60, 10, new Vector2(0, 0));
             _damage = 25f;
@@ -56,22 +58,29 @@ namespace Forest_of_wrath.Classes.Hero.States
         }
         public void Update(GameTime gameTime, Hitbox hitbox = null)
         {
-            if(_animation._currentFrame == _animation._lastFrame)
-            {
-                invokeAttack();
-                _heroInstance.setState(Character.CharacterState.IDLE);
-            }
+            invokeAttack();
             _animation.Update(gameTime);
         }
         private void invokeAttack()
         {
             _enemyList.ForEach(enemy =>
             {
-                if(swordHitBox.rect.Intersects(enemy.getState().bodyHitBox.rect))
+                if (swordHitBox.rect.Intersects(enemy.getState().bodyHitBox.rect))
                 {
-                    enemy.setHealth(_damage);
+                    if (enemy.getHealth() > 0 && enemy.getState() is not TakeHit)
+                    {
+                        enemy.setState(Character.CharacterState.TAKEHIT);
+                        if(_animation._firstFrame == _animation._currentFrame)
+                        {
+                            enemy.setHealth(enemy.getHealth() - _damage);
+                        }
+                    }
                 }
             });
+            if (_animation._currentFrame == _animation._lastFrame)
+            {
+                _heroInstance.setState(Character.CharacterState.IDLE);
+            }
         }
     }
 }

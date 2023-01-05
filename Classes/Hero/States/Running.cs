@@ -25,7 +25,7 @@ namespace Forest_of_wrath.Classes.Hero.States
         public Hitbox bodyHitBox { get; set; }
 
         private SoundEffect _sound;
-        public Running(ContentManager content, HeroClass heroInstance, GraphicsDeviceManager graphicsDevice)
+        public Running(ContentManager content, HeroClass heroInstance, GraphicsDeviceManager graphicsDevice, Vector2 lastKnowPostition)
         {
             /*
              *  RUNNING STATE Hero/Run
@@ -48,7 +48,7 @@ namespace Forest_of_wrath.Classes.Hero.States
             _sound.Play();
             _currentPosition = _heroInstance.getPosition();
             bodyHitBox = new Hitbox(graphicsDevice);
-            bodyHitBox.Load(22, 65, new Vector2(0, 0));
+            bodyHitBox.Load(22, 65, lastKnowPostition);
             _collision = new CollisionHandler(22,65,graphicsDevice);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, SpriteEffects effect)
