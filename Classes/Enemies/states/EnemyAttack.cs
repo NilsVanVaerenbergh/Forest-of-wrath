@@ -113,7 +113,10 @@ namespace Forest_of_wrath.Classes.Enemies.states
                     sound.Play();
                     LastDamagedTime = DateTime.Now;
                 }
-                hero.Health -= enemyInstance.baseDamage * multiplier;
+                if(!hero.getHide())
+                {
+                    hero.Health -= enemyInstance.baseDamage * multiplier;
+                }
             }
         }
     }

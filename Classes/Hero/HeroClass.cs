@@ -26,6 +26,8 @@ namespace Forest_of_wrath.Classes.Hero
 
         private List<IEnemyObject> _enemyList;
 
+        private bool isHiding;
+
         public HeroClass(ContentManager content, GraphicsDeviceManager graphicsDevice, UIHandler uiInstance, List<IEnemyObject> enemyList)
         {
             _heightOffset = 377;
@@ -39,6 +41,7 @@ namespace Forest_of_wrath.Classes.Hero
             baseVelocity = 2;
             _uiInstance = uiInstance;
             _enemyList = enemyList;
+            isHiding = false;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -46,13 +49,13 @@ namespace Forest_of_wrath.Classes.Hero
         }
         public void Update(GameTime gameTime)
         {
-            _state.Update(gameTime);
             if(Health <= 0 && _state is not Death)
             {
                 setState(Character.CharacterState.DEATH);
                 Death deathState = (Death)_state;
                 deathState.setUiInstance(_uiInstance);
             }
+            _state.Update(gameTime);
         }
         public void Move()
         {
@@ -68,7 +71,13 @@ namespace Forest_of_wrath.Classes.Hero
                 setState(Character.CharacterState.JUMP);
             }
         }
-
+        public void invokeCrouch()
+        {
+            if(_state is not Crouch)
+            {
+                setState(Character.CharacterState.CROUCH);
+            }
+        }
         public void invokeAttack()
         {
             if (_state is not Attack)
@@ -85,6 +94,7 @@ namespace Forest_of_wrath.Classes.Hero
             if (state == Character.CharacterState.RUNNING) _state = new Running(_content, this, graphicsDeviceManager, _position);
             if (state == Character.CharacterState.IDLE) _state = new Idle(_content, graphicsDeviceManager, _position);
             if (state == Character.CharacterState.DEATH) _state = new Death(_content, graphicsDeviceManager, _position);
+            if (state == Character.CharacterState.CROUCH) _state = new Crouch(_content, this,graphicsDeviceManager, _position);
             if (state == Character.CharacterState.ATTACK) _state = new Attack(_content ,this, graphicsDeviceManager, _enemyList, _position);
             if (state == Character.CharacterState.JUMP) _state = new Jumping(_content, this, graphicsDeviceManager, _position);
         }
@@ -99,6 +109,15 @@ namespace Forest_of_wrath.Classes.Hero
         public void setPosition(Vector2 position)
         {
             _position = position;
+        }
+
+        public void setHide(bool hidingState)
+        {
+            isHiding = hidingState;
+        }
+        public bool getHide()
+        {
+            return isHiding;
         }
         public Hitbox GetHeroHitbox()
         {

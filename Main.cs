@@ -46,15 +46,10 @@ namespace Forest_of_wrath
             // TODO: use this.Content to load your game content here
             _ui = new UIHandler(this.Content, _graphics);
         }
-
-
-
         protected override void UnloadContent()
         {
             base.UnloadContent();
         }
-
-
         protected override void Update(GameTime gameTime)
         {
 

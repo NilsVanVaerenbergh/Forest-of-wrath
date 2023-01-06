@@ -3,6 +3,7 @@ using Forest_of_wrath.Classes.Enemies;
 using Forest_of_wrath.Classes.Enemies.states;
 using Forest_of_wrath.Classes.Handlers;
 using Forest_of_wrath.Classes.Hero;
+using Forest_of_wrath.Classes.UI.Foreground;
 using Forest_of_wrath.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -19,8 +20,10 @@ namespace Forest_of_wrath.Classes.UI.States
     {
         KeyHandler controls;
         HeroClass hero;
+        Barrel barrel;
         List<IEnemyObject> enemyList = new List<IEnemyObject>();
         List<IEnemyObject> killedList = new List<IEnemyObject>();
+        List<Barrel> barrelList = new List<Barrel>();
         Text HealthText;
         Text CurrentLevelText;
         Text killedEnemiesText;
@@ -31,7 +34,7 @@ namespace Forest_of_wrath.Classes.UI.States
         Random rand = new Random();
         public Playing(ContentManager content, UIHandler instance, GraphicsDeviceManager graphicsDevice)
         {
-            CurrentLevel = 1f;
+            CurrentLevel = 0f;
             hero = new HeroClass(content, graphicsDevice, instance, enemyList);
             controls = new KeyHandler(hero);
             SpriteFont font = content.Load<SpriteFont>("Font/title_12");
@@ -39,18 +42,20 @@ namespace Forest_of_wrath.Classes.UI.States
             killedEnemiesText = new Text($"Killed: {KilledEnemies}/{totalEnemies}", new Vector2(20f, 90f), font, Color.Gold, false);
             CurrentLevelText = new Text($"Level: {CurrentLevel.ToString("n0")}", new Vector2(20f, 70f), font, Color.Gold, false);
             enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
-            //enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
-            //enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
-            //enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
-            //enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
-            //enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new ToothWalker(content, graphicsDevice, hero, rand.NextFloat(-200f, 1000), rand.NextFloat(0.3f, 1.5f)));
+            enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
+            enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
+            enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
+            enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
+            enemyList.Add(new Goblin(content, graphicsDevice, hero, rand.NextFloat(-1000f, 1000), rand.NextFloat(1f, 2.5f)));
             enemyList.Add(new Bat(content, graphicsDevice, hero, rand.NextFloat(-100f, -500f), rand.NextFloat(3f, 8f)));
             enemyList.Add(new Bat(content, graphicsDevice, hero, rand.NextFloat(1000f, 5000f), rand.NextFloat(3f, 8f)));
+            barrelList.Add(new Barrel(content, graphicsDevice, rand.NextFloat(100f, 800f)));
+            barrelList.Add(new Barrel(content, graphicsDevice, rand.NextFloat(100f, 800f)));
             KilledEnemies = 0;
             totalEnemies = enemyList.Count;
             addedHealth = false;
@@ -59,7 +64,7 @@ namespace Forest_of_wrath.Classes.UI.States
         {
             HealthText.updateString(hero.Health < 0f ? "Health: 0" : $"Health: {hero.Health.ToString("n0")}");
             HealthText.Draw(spriteBatch);
-            CurrentLevelText.updateString($"Level: {CurrentLevel.ToString("n0")}");
+            CurrentLevelText.updateString($"Level: {CurrentLevel -1}");
             CurrentLevelText.Draw(spriteBatch);
             killedEnemiesText.updateString($"Killed: {KilledEnemies}/{totalEnemies}");
             killedEnemiesText.Draw(spriteBatch);
@@ -68,19 +73,26 @@ namespace Forest_of_wrath.Classes.UI.States
             {
                 enemy.Draw(spriteBatch);
             });
+            barrelList.ForEach(barrel =>
+            {
+                barrel.Draw(spriteBatch);
+            });
             killedList.ForEach(enemy =>
             {
                 enemy.Draw(spriteBatch);
             });
         }
-
         public void Update(GameTime gameTime)
         {
             controls.Handle();
             hero.Update(gameTime);
             enemyList.ForEach(enemy => enemy.Update(gameTime, new Vector2(hero._state.bodyHitBox.rect.X, hero._state.bodyHitBox.rect.Y), CurrentLevel));
             killedList.ForEach(enemy => enemy.Update(gameTime, new Vector2(hero._state.bodyHitBox.rect.X, hero._state.bodyHitBox.rect.Y), CurrentLevel));
-            if(KilledEnemies >= totalEnemies)
+            barrelList.ForEach(barrel =>
+            {
+                barrel.Update(gameTime, hero);
+            });
+            if (KilledEnemies >= totalEnemies)
             {
                 killedList.ForEach(enemy =>
                 {

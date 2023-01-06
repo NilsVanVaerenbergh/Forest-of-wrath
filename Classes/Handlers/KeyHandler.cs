@@ -69,6 +69,13 @@ namespace Forest_of_wrath.Classes.Handlers
                     _hero.setState(Character.CharacterState.IDLE);
                 }
             }
+
+
+            if (newState.IsKeyDown(Keys.Down) && oldState.IsKeyDown(Keys.Down))
+            {
+                _hero.invokeCrouch();
+            }
+
             if (newState.IsKeyDown(Keys.Up) && !oldState.IsKeyDown(Keys.Up))
             {
                 _hero.Jump();

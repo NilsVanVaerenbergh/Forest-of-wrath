@@ -6,6 +6,7 @@ using Forest_of_wrath.Classes.Animations;
 using Forest_of_wrath.Classes.Collision;
 using System.Collections.Generic;
 using Forest_of_wrath.Classes.Enemies.states;
+using System;
 
 namespace Forest_of_wrath.Classes.Hero.States
 {
@@ -19,13 +20,15 @@ namespace Forest_of_wrath.Classes.Hero.States
         private HeroClass _heroInstance;
         private List<IEnemyObject> _enemyList;
         private float _damage;
+        Random rand = new Random();
         public Attack(ContentManager content, HeroClass instance, GraphicsDeviceManager graphicsDevice, List<IEnemyObject> enemyList, Vector2 lastKnowPostition)
         {
             /*
              *  Attack STATE Hero/Attack
              *  FRAMES: 4
              */
-            _heroTexture = content.Load<Texture2D>("Hero/Attack1");
+            int randomAttackNum = rand.Next(1, 4);
+            _heroTexture = content.Load<Texture2D>($"Hero/Attack{randomAttackNum}");
             frameWidth = _heroTexture.Width / 4;
             _animation = new Animation(6);
             _animation.AddFrame(new AnimationFrame(new Rectangle(0, 0, frameWidth, _heroTexture.Height)));

@@ -15,7 +15,8 @@ namespace Forest_of_wrath.Classes.Animations
             ATTACK,
             DEATH,
             JUMP,
-            TAKEHIT
+            TAKEHIT,
+            CROUCH
         }
         public enum CharacterSound
         {

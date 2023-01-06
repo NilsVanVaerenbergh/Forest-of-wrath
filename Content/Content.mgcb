@@ -534,6 +534,12 @@
 /processorParam:Quality=Best
 /build:Sound/Game.mp3
 
+#begin Sound/Hero/crouch.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Hero/crouch.wav
+
 #begin Sound/Hero/death.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -557,6 +563,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/MainMenu.mp3
+
+#begin UI/barrel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/barrel.png
 
 #begin UI/Brown.png
 /importer:TextureImporter
