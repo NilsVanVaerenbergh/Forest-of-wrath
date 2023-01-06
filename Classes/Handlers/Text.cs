@@ -24,9 +24,9 @@ namespace Forest_of_wrath.Classes.Handlers
                 origin = font.MeasureString(str) / 2;
 
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, float scale = 1f)
         {
-            spriteBatch.DrawString(font, str, pos, color * opacity, 0f, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, str, pos, color * opacity, 0f, origin, scale, SpriteEffects.None, 0f);
         }
         public void updatePos(Vector2 pos)
         {

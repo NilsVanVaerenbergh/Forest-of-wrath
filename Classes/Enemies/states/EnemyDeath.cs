@@ -23,7 +23,8 @@ namespace Forest_of_wrath.Classes.Enemies.states
         public Hitbox bodyHitBox { get; set; }
         // Entity instances:
         private Vector2 heroPosition;
-        public EnemyDeath(ContentManager content, GraphicsDeviceManager graphicsDevice, string locationPath, int frames)
+        public Enemy enemyInstance;
+        public EnemyDeath(ContentManager content, GraphicsDeviceManager graphicsDevice, Enemy enemyInstance, string locationPath, int frames)
         {
             enemyTexture = content.Load<Texture2D>(locationPath);
             frameWidth = enemyTexture.Width / frames;

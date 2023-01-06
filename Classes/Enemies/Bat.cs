@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Forest_of_wrath.Classes.Enemies
 {
-    internal class Goblin : Enemy, IEnemyObject
+    internal class Bat : Enemy, IEnemyObject
     {
         private IEnemyStateObject _state;
         private int _heightOffset;
@@ -21,34 +21,28 @@ namespace Forest_of_wrath.Classes.Enemies
         HeroClass _heroInstance;
         private float _randomVelocity;
         public float _multiplier { get; set; }
-        private Text healthText;
         public float baseHealth { get; set; }
-        public Goblin(ContentManager content, GraphicsDeviceManager graphicsDevice, HeroClass heroInstance, float randomXPos, float randomVelocity) : base(50)
+        public Bat(ContentManager content, GraphicsDeviceManager graphicsDevice, HeroClass heroInstance, float randomXPos, float randomVelocity) : base(50)
         {
-            _heightOffset = 400;
+            _heightOffset = 350;
             _position = new Vector2(randomXPos, _heightOffset);
             _content = content;
             graphicsDeviceManager = graphicsDevice;
-            _state = new EnemyIdle(_content, graphicsDeviceManager, this, "Enemies/Goblin/Idle", 4, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
             _flip = SpriteEffects.None;
+            _state = new EnemyIdle(_content, graphicsDeviceManager, this, "Enemies/Bat/Flight", 8, new int[2] { 13, 13 }, new float[2] { 70f, 45 });
             baseHealth = 2f;
-            baseDamage = 50f;
+            baseDamage = 200f;
             Health = baseHealth * _multiplier;
             _heroInstance = heroInstance;
             _randomVelocity = randomVelocity;
-            SpriteFont font = content.Load<SpriteFont>("Font/title_12");
-            healthText = new Text($"{Health}", new Vector2(_position.X + 65f, _position.Y + 45f), font, Color.DarkGreen * 0.5f);
         }
         public void Draw(SpriteBatch spriteBatch)
-        {
-            healthText.updateString(Health < 0f ? "0" : $"{Health}");
-            healthText.Draw(spriteBatch);
+        { 
             _state.Draw(spriteBatch, _position, _flip);
         }
         public void Update(GameTime gameTime, Vector2 heroPos, float multiplier)
         {
             _multiplier = multiplier;
-            healthText.updatePos(new Vector2(_position.X + 65f, _position.Y + 45f));
             if (Health <= 0f && _state is not EnemyDeath)
             {
                 setState(Character.CharacterState.DEATH);
@@ -73,11 +67,11 @@ namespace Forest_of_wrath.Classes.Enemies
 
         override public void setState(Character.CharacterState state)
         {
-            if (state == Character.CharacterState.RUNNING) _state = new EnemyRunning(_content, graphicsDeviceManager, this, _heroInstance.GetHeroHitbox(), _position, "Enemies/Goblin/Run", 8, new int[2] { 13, 45 }, new float[2] { 70f, 45 }, _randomVelocity);
-            if (state == Character.CharacterState.IDLE) _state = new EnemyIdle(_content, graphicsDeviceManager, this, "Enemies/Goblin/Idle", 4, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
-            if (state == Character.CharacterState.ATTACK) _state = new EnemyAttack(_content, graphicsDeviceManager, this, "Enemies/Goblin/Attack", "Sound/Enemies/Toothwalker/stab", 8, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
-            if (state == Character.CharacterState.DEATH) _state = new EnemyDeath(_content, graphicsDeviceManager, this,"Enemies/Goblin/Death", 4);
-            if (state == Character.CharacterState.TAKEHIT) _state = new EnemyTakeHit(_content, graphicsDeviceManager, this, "Enemies/Goblin/Take Hit", 4, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
+            if (state == Character.CharacterState.RUNNING) _state = new BatRunning(_content, graphicsDeviceManager, this, _heroInstance.GetHeroHitbox(), _position, "Enemies/Bat/Flight", 8, new int[2] { 13, 45 }, new float[2] { 70f, 45 }, _randomVelocity);
+            if (state == Character.CharacterState.IDLE) _state = new EnemyIdle(_content, graphicsDeviceManager, this, "Enemies/Bat/Flight", 8, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
+            if (state == Character.CharacterState.ATTACK) _state = new BatAttack(_content, graphicsDeviceManager, this, "Enemies/Bat/Attack", "Sound/Enemies/Toothwalker/stab", 8, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
+            if (state == Character.CharacterState.DEATH) _state = new BatDeath(_content, graphicsDeviceManager,this ,"Enemies/Bat/Death", 4);
+            if (state == Character.CharacterState.TAKEHIT) _state = new EnemyTakeHit(_content, graphicsDeviceManager, this, "Enemies/Bat/Take Hit", 4, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
         }
         override public IEnemyStateObject getState()
         {

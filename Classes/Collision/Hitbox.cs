@@ -29,7 +29,7 @@ namespace Forest_of_wrath.Classes.Collision
         {
             rect.X = (int)position.X;
             rect.Y = (int)position.Y;
-            spriteBatch.Draw(pixelTexture, rect, Color.Aquamarine * 0.0f);
+            spriteBatch.Draw(pixelTexture, rect, Color.Aquamarine * 0.3f);
         }
     }
 }

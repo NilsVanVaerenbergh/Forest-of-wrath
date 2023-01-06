@@ -23,14 +23,14 @@ namespace Forest_of_wrath.Classes.Enemies.states
         // Mechanics:
         public Hitbox bodyHitBox { get; set; }
         private float[] hitboxOffset = new float[2];
-        private CollisionHandler collision;
-        private Vector2 currentPosition;
-        private float randomXVelocity;
-        private Vector2 velocity;
+        public CollisionHandler collision;
+        public Vector2 currentPosition;
+        public float randomXVelocity;
+        public Vector2 velocity;
         // Entity instances:
-        private Vector2 heroPosition;
-        private Hitbox heroHitBox;
-        private Enemy enemyInstance;
+        public Vector2 heroPosition;
+        public Hitbox heroHitBox;
+        public Enemy enemyInstance;
         public EnemyRunning(ContentManager content, GraphicsDeviceManager graphicsDevice, Enemy enemyInstance, Hitbox heroHitBox, Vector2 position,string locationPath, int frames, int[] hitBoxSize, float[] hitBoxOffset, float randomXVelocity) 
         {
             if (hitBoxSize.Length > 2 || hitBoxSize.Length <= 0) { throw new ArgumentException("int[2] hitBoxSize should contain 2 integers (width,height) example: [13,45]"); }
@@ -71,7 +71,7 @@ namespace Forest_of_wrath.Classes.Enemies.states
             bodyHitBox.Draw(spriteBatch, new Vector2(currentPosition.X + hitboxOffset[0], currentPosition.Y + hitboxOffset[1]));
             spriteBatch.Draw(enemyTexture, new Vector2(currentPosition.X, currentPosition.Y), animation._currentFrame._sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
         }
-        public void Update(GameTime gameTime)
+        virtual public void Update(GameTime gameTime)
         {
             float[] distance = collision.distanceFromHero(new Vector2(bodyHitBox.rect.X, bodyHitBox.rect.Y), heroPosition);
 

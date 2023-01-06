@@ -56,7 +56,7 @@ namespace Forest_of_wrath.Classes.Hero
         }
         public void Move()
         {
-            if(_state is not Running && _state is not Jumping)
+            if(_state is not Running && _state is not Jumping && _state is not Attack)
             {
                 setState(Character.CharacterState.RUNNING);
             }

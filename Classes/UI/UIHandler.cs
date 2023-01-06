@@ -17,14 +17,12 @@ namespace Forest_of_wrath.Classes.UI
     }
     internal class UIHandler : IGameObject
     {
-        Header header;
         BackgroundHandler background;
         IUiStateObject uiState;
         ContentManager content;
         GraphicsDeviceManager graphicsDeviceManager;
         public UIHandler(ContentManager content, GraphicsDeviceManager graphicsDevice)
         {
-            header = new Header(content);
             background = new BackgroundHandler(content);
             uiState = new MainMenu(content, this);
             this.content = content;
@@ -34,7 +32,6 @@ namespace Forest_of_wrath.Classes.UI
         {
             background.Draw(spriteBatch);
             uiState.Draw(spriteBatch);
-            header.Draw(spriteBatch);
         }
         public void Update(GameTime gameTime)
         {

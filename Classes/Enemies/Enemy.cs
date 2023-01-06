@@ -35,5 +35,10 @@ namespace Forest_of_wrath.Classes.Enemies
         {
             throw new NotImplementedException();
         }
+
+        virtual public Vector2 getPosition()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

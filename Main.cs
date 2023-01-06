@@ -20,8 +20,6 @@ namespace Forest_of_wrath
         UIHandler _ui;
         public SpriteFont debugFont { get; set; }
 
-        private Text debugText;
-
         public float scale = 0f;
 
         public Main()
@@ -78,7 +76,6 @@ namespace Forest_of_wrath
             _spriteBatch.End();
             _spriteBatch.Begin();
             _ui.Draw(_spriteBatch);
-            debugText.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

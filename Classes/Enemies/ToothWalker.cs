@@ -43,7 +43,6 @@ namespace Forest_of_wrath.Classes.Enemies
         {
             healthText.updateString(Health < 0f ? "0" : $"{Health}");
             healthText.Draw(spriteBatch);
-            Debug.WriteLine(_position.ToString());
             _state.Draw(spriteBatch, _position, _flip);
         }
         public void Update(GameTime gameTime, Vector2 heroPos, float multiplier)
@@ -67,7 +66,7 @@ namespace Forest_of_wrath.Classes.Enemies
             _state.Update(gameTime);
            
         }
-        public Vector2 getPosition()
+        override public Vector2 getPosition()
         {
             return _position;
         }
@@ -77,7 +76,7 @@ namespace Forest_of_wrath.Classes.Enemies
             if (state == Character.CharacterState.RUNNING) _state = new EnemyRunning(_content, graphicsDeviceManager, this, _heroInstance.GetHeroHitbox(),_position ,"Enemies/ToothWalker/Run", 8, new int[2] { 13, 45 }, new float[2] { 70f, 45 }, _randomVelocity);
             if (state == Character.CharacterState.IDLE) _state = new EnemyIdle(_content, graphicsDeviceManager, this, "Enemies/ToothWalker/Idle", 4, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
             if (state == Character.CharacterState.ATTACK) _state = new EnemyAttack(_content, graphicsDeviceManager, this, "Enemies/ToothWalker/Attack", "Sound/Enemies/Toothwalker/stab",8, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
-            if (state == Character.CharacterState.DEATH) _state = new EnemyDeath(_content, graphicsDeviceManager, "Enemies/ToothWalker/Death", 4);
+            if (state == Character.CharacterState.DEATH) _state = new EnemyDeath(_content, graphicsDeviceManager,this ,"Enemies/ToothWalker/Death", 4);
             if (state == Character.CharacterState.TAKEHIT) _state = new EnemyTakeHit(_content, graphicsDeviceManager, this, "Enemies/ToothWalker/Take Hit", 4, new int[2] { 13, 45 }, new float[2] { 70f, 45 });
         }
         override public IEnemyStateObject getState()
