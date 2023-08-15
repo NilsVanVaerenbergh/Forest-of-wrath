@@ -104,7 +104,7 @@ namespace Forest_of_wrath.Classes.UI.States
                 enemyList.AddRange(killedList);
                 enemyList.ForEach(enemy => enemy.setState(Character.CharacterState.IDLE));
                 killedList.Clear();
-                if(!addedHealth)
+                if (!addedHealth)
                 {
                     hero.HeroDamage *= CurrentLevel;
                     CurrentLevel += 1;
@@ -112,8 +112,8 @@ namespace Forest_of_wrath.Classes.UI.States
                     addedHealth = true;
                 }
             }
-            addedHealth= false;
-            if(enemyList.Count > 0)
+            addedHealth = false;
+            if (enemyList.Count > 0)
             {
                 for (int i = 0; i < enemyList.Count; i++)
                 {

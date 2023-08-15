@@ -73,7 +73,11 @@ namespace Forest_of_wrath.Classes.Handlers
 
             if (newState.IsKeyDown(Keys.Down) && oldState.IsKeyDown(Keys.Down))
             {
-                _hero.invokeCrouch();
+
+                if(_hero._state is not Jumping)
+                {
+                    _hero.invokeCrouch();
+                }
             }
 
             if (newState.IsKeyDown(Keys.Up) && !oldState.IsKeyDown(Keys.Up))
