@@ -588,30 +588,6 @@
 /processorParam:Quality=Best
 /build:Sound/MainMenu.mp3
 
-#begin UI/barrel.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UI/barrel.png
-
-#begin UI/Brown.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UI/Brown.png
-
 #begin UI/game_over.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -623,18 +599,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI/game_over.png
-
-#begin UI/LARGE_platform.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UI/LARGE_platform.png
 
 #begin UI/main_screen.png
 /importer:TextureImporter
@@ -648,18 +612,6 @@
 /processorParam:TextureFormat=Color
 /build:UI/main_screen.png
 
-#begin UI/platforms.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UI/platforms.png
-
 #begin UI/Portal.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -672,7 +624,7 @@
 /processorParam:TextureFormat=Color
 /build:UI/Portal.png
 
-#begin UI/STONE_platform.png
+#begin UI/Trap.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -682,5 +634,17 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UI/STONE_platform.png
+/build:UI/Trap.png
+
+#begin UI/Tree.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/Tree.png
 

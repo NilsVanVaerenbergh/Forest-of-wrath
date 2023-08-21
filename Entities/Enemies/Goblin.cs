@@ -43,10 +43,10 @@ namespace Forest_of_wrath.Entities.Enemies
                     SetAnimationObject(new GoblinIdle());
                     break;
                 case EnemyState.ATTACK:
-                    SetAnimationObject(new MushroomIdle());
+                    SetAnimationObject(new GoblinAttack());
                     break;
                 case EnemyState.RUNNING:
-                    SetAnimationObject(new MushroomRun());
+                    SetAnimationObject(new GoblinRun());
                     break;
                 default: return;
             }

@@ -27,14 +27,16 @@ namespace Forest_of_wrath.Handlers
             Vector2 heroVelocity = hero.GetVelocity();
             platformHandler.setActivePlatformState(heroVelocity);
             if (Keyboard.GetState().IsKeyDown(Keys.Right) && 
-                !Globals.collisionHandler.atRightBorder(hero.GetHitbox().GetRectangle().X + hero.GetHitbox().GetRectangle().Width))
+                !Globals.collisionHandler.atRightBorder(hero.GetHitbox().GetRectangle().X + hero.GetHitbox().GetRectangle().Width) &&
+                hero.GetAnimationObject() is not HeroCrouch)
             {
                 hero.SetXVelocity(heroVelocity.X = 1.5f);
                 hero.SetEffect(SpriteEffects.None);
                 Running(hero);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left) && 
-                    !Globals.collisionHandler.atLeftBorder(hero.GetHitbox().GetRectangle().X))
+                    !Globals.collisionHandler.atLeftBorder(hero.GetHitbox().GetRectangle().X) &&
+                    hero.GetAnimationObject() is not HeroCrouch)
             {
                 hero.SetXVelocity(heroVelocity.X = -1.5f);
                 hero.SetEffect(SpriteEffects.FlipHorizontally);
@@ -49,7 +51,7 @@ namespace Forest_of_wrath.Handlers
                     HeroAnimationHandler.SetIdle();
                 }
             }
-            if(Keyboard.GetState().IsKeyDown(Keys.Up) && hero.HasJumped() == false)
+            if(Keyboard.GetState().IsKeyDown(Keys.Up) && hero.HasJumped() == false && hero.GetAnimationObject() is not HeroCrouch)
             {
                 float Y = hero.GetPosition().Y;
                 hero.SetYPosition(Y -= 10f);
@@ -75,8 +77,6 @@ namespace Forest_of_wrath.Handlers
             // Wanneer de grond geraakt wordt
             if (hero.GetPosition().Y + hero.GetAnimationObject().GetTextureHeight() >= Globals.floorYPosition)
                 hero.SetJumped(false);
-
-
             #endregion
             if (hero.HasJumped() == false)
             {

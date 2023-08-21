@@ -21,6 +21,7 @@ namespace Forest_of_wrath.Entities
         private Hitbox hitbox;
         private bool hasJumped;
         private bool onPlatform;
+        private bool isHidden;
         private int health = 100;
         private SpriteEffects spriteEffect;
 
@@ -35,6 +36,7 @@ namespace Forest_of_wrath.Entities
             hitbox = new Hitbox();
             hitbox.Load(22, 65, heroPosition, Color.Aquamarine);
             spriteEffect = SpriteEffects.None;
+            isHidden = false;
         }
         public void Draw()
         {
@@ -60,6 +62,8 @@ namespace Forest_of_wrath.Entities
         public Vector2 GetPosition() { return heroPosition; }
         public bool HasJumped() { return hasJumped; }
         public void SetJumped(bool hasJumped) { this.hasJumped = hasJumped; }
+        public bool IsHidden() { return isHidden; }
+        public void SetHidden(bool hidden) { isHidden = hidden; }
         public void SetEffect(SpriteEffects effect) { spriteEffect = effect; }
         public Hitbox GetHitbox() { return hitbox; }
         public bool GetOnPlatform() { return onPlatform;  }

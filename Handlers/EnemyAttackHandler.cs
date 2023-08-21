@@ -27,7 +27,7 @@ namespace Forest_of_wrath.Handlers
                     Animation enemyAnimation = enemy.GetAnimationObject().GetAnimation();
                     if(enemyAnimation.getCurrentFrame() == enemyAnimation.getLastFrame())
                     {
-                        if(enemy.GetHitbox().GetRectangle().Intersects(Globals.hero.GetHitbox().GetRectangle()))
+                        if(enemy.GetHitbox().GetRectangle().Intersects(Globals.hero.GetHitbox().GetRectangle()) && !Globals.hero.IsHidden())
                         {
                             Globals.hero.SetHealth(Globals.hero.GetHealth() - enemy.GetAttackDamage());
                         }     
