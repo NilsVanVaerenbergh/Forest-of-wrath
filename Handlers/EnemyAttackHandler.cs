@@ -17,7 +17,6 @@ namespace Forest_of_wrath.Handlers
         {
             foreach(Enemy enemy in Globals.enemies)
             {
-                Debug.WriteLine($"{enemy.GetType()} intersects with hero {enemy.GetHitbox().GetRectangle().Intersects(Globals.hero.GetHitbox().GetRectangle())} in state {enemy.GetEnemyState()}");
                 if(enemy.GetHitbox().GetRectangle().Intersects(Globals.hero.GetHitbox().GetRectangle()))
                 {
                     if(enemy.GetEnemyState() != Enemy.EnemyState.ATTACK)

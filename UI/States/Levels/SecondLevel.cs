@@ -26,7 +26,7 @@ namespace Forest_of_wrath.UI.States.Levels
 
             portal = new Portal();
             font = Globals.contentManager.Load<SpriteFont>("Font/title_24");
-            level = new Text("Level 1", new Vector2((Globals.graphicsDeviceManager.GraphicsDevice.Viewport.Width - 8) / 2, 100f), font, Color.Gold, true);
+            level = new Text("Level 2", new Vector2((Globals.graphicsDeviceManager.GraphicsDevice.Viewport.Width - 8) / 2, 100f), font, Color.Gold, true);
             tree = new Tree();
             trap = new Trap();
             Init();        

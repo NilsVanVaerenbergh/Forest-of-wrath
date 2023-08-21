@@ -14,7 +14,7 @@ namespace Forest_of_wrath
     internal class Globals
     {
         #region DEBUG
-        static public bool debug = true;
+        static public bool debug = false;
         #endregion
         static public SpriteBatch spriteBatch;
         static public ContentManager contentManager;
