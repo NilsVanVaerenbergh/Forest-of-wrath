@@ -1,38 +1,39 @@
-﻿using Forest_of_wrath.Classes.Background;
-using Forest_of_wrath.Classes.Handlers;
-using Forest_of_wrath.Classes.Hero;
-using Forest_of_wrath.Classes.UI;
+﻿using Forest_of_wrath.Entities;
+using Forest_of_wrath.Entities.Enemies;
+using Forest_of_wrath.Entities.Platforms;
+using Forest_of_wrath.Handlers;
+using Forest_of_wrath.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
+using System.Diagnostics;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace Forest_of_wrath
 {
     public class Main : Game
     {
-        public GraphicsDeviceManager _graphics;
+       private GraphicsDeviceManager _graphics;
+        private Background _background;
         private RenderTarget2D _renderTarget;
-        private SpriteBatch _spriteBatch;
+        private UIHandler _uiHandler;
         Color _color;
-        UIHandler _ui;
-        public SpriteFont debugFont { get; set; }
-
-        public float scale = 0f;
-
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            IsMouseVisible = true;
         }
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            IsMouseVisible = true;
+            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.contentManager = Content;
             _color = new Color(12, 17, 34);
+            IsMouseVisible = true;
             _graphics.PreferredBackBufferHeight = 680;
             _graphics.PreferredBackBufferWidth = 928;
             _graphics.ApplyChanges();
@@ -41,43 +42,49 @@ namespace Forest_of_wrath
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
             _renderTarget = new RenderTarget2D(GraphicsDevice, 928, 680);
+            InitializeGameObjects();
+            _background = new Background();
             // TODO: use this.Content to load your game content here
-            _ui = new UIHandler(this.Content, _graphics);
+        }
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            // TODO: Add your update logic here
+            _uiHandler.Update(gameTime);
+            base.Update(gameTime);
         }
         protected override void UnloadContent()
         {
             base.UnloadContent();
         }
-        protected override void Update(GameTime gameTime)
-        {
-
-            _ui.Update(gameTime);
-            // TODO: Add your update logic here
-            base.Update(gameTime);
-        }
         protected override void Draw(GameTime gameTime)
         {
-
-            scale = 1f / (928f / _graphics.GraphicsDevice.Viewport.Width);
+            GraphicsDevice.Clear(Color.BurlyWood);
+            // TODO: Add your drawing code here
             GraphicsDevice.SetRenderTarget(_renderTarget);
             GraphicsDevice.Clear(_color);
             // TODO: Add your drawing code here
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(_color);
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(_renderTarget, Vector2.Zero,null, Color.White, 0f, Vector2.Zero,1f,SpriteEffects.None,0f);
-            _spriteBatch.End();
-            _spriteBatch.Begin();
-            _ui.Draw(_spriteBatch);
-            _spriteBatch.End();
+            Globals.spriteBatch.Begin();
+            Globals.spriteBatch.Draw(_renderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Globals.spriteBatch.End();
+            Globals.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            _background.Draw();
+            _uiHandler.Draw();
+            Globals.spriteBatch.End();
             base.Draw(gameTime);
         }
-        public void onResize(object sender, EventArgs e)
+        private void InitializeGameObjects()
         {
-            _graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
-            _graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+            Globals.inputReader = new MovementHandler();
+            Globals.graphicsDeviceManager = _graphics;
+            Globals.collisionHandler = new CollisionHandler();
+            Globals.hero = new Hero(Globals.contentManager.Load<Texture2D>("Hero/Idle"));
+            _uiHandler = new UIHandler();
         }
     }
 }
